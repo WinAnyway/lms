@@ -3,5 +3,6 @@ package pl.com.kubachmielowiec.model;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Publisher {
+public class PublicationCode {
+
 }

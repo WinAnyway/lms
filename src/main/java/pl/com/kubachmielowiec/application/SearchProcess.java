@@ -4,6 +4,6 @@ import pl.com.kubachmielowiec.model.SearchCommand;
 
 public interface SearchProcess {
 
-    void search(SearchCommand searchCommand);
+    PublicationSearchResults search(SearchCommand searchCommand);
 
 }
