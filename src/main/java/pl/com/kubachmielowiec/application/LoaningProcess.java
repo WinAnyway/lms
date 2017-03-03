@@ -1,12 +1,10 @@
 package pl.com.kubachmielowiec.application;
 
-import pl.com.kubachmielowiec.model.PublicationCode;
-
 public interface LoaningProcess {
 
-    void loan(PublicationCode publicationCode);
+    void loan(Long id);
 
-    void getBack(PublicationCode publicationCode);
+    void giveBack(Long id);
 
     LoanRaport generateExpiredReturnDateRaport();
 

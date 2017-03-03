@@ -3,18 +3,23 @@ package pl.com.kubachmielowiec.application.impl;
 import pl.com.kubachmielowiec.application.LoanRaport;
 import pl.com.kubachmielowiec.application.LoaningProcess;
 import pl.com.kubachmielowiec.application.Ranking;
-import pl.com.kubachmielowiec.model.PublicationCode;
+import pl.com.kubachmielowiec.model.Publication;
+import pl.com.kubachmielowiec.model.PublicationRepository;
 
 public class StandardLoaningProcess implements LoaningProcess {
 
-    @Override
-    public void loan(PublicationCode publicationCode) {
+    private PublicationRepository publicationRepository;
 
+    @Override
+    public void loan(Long id) {
+        Publication publication = publicationRepository.get(id);
+        publication.loan();
     }
 
     @Override
-    public void getBack(PublicationCode publicationCode) {
-
+    public void giveBack(Long id) {
+        Publication publication = publicationRepository.get(id);
+        publication.giveBack();
     }
 
     @Override
