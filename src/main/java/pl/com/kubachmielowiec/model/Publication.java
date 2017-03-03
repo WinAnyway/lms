@@ -46,6 +46,15 @@ public class Publication {
         this.available = true;
     }
 
+    public void change(ChangePublicationCommand cmd) {
+        this.title = cmd.getTitle();
+        this.description = cmd.getDescription();
+        this.authors = cmd.getAuthors();
+        this.isbn = cmd.getIsbn();
+        this.published = cmd.getPublished();
+        this.genres = cmd.getGenres();
+    }
+
     public PublicationCode getPublicationCode() {
         return publicationCode;
     }
