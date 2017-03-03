@@ -18,4 +18,11 @@ public class Loan {
     @Temporal(TemporalType.TIMESTAMP)
     private Date loanDate;
 
+    public Publication getPublication() {
+        return publication;
+    }
+
+    public Date getLoanDate() {
+        return loanDate;
+    }
 }
