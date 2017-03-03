@@ -1,9 +1,13 @@
-package pl.com.kubachmielowiec.model;
+package pl.com.kubachmielowiec.model.commands;
+
+import pl.com.kubachmielowiec.model.Author;
+import pl.com.kubachmielowiec.model.Genre;
+import pl.com.kubachmielowiec.model.ISBN;
 
 import java.util.Date;
 import java.util.Set;
 
-public class ChangePublicationCommand {
+public class UpdatePublicationCommand {
 
     private String title;
     private String description;

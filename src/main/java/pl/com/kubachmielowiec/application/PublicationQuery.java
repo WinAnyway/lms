@@ -1,4 +1,4 @@
 package pl.com.kubachmielowiec.application;
 
-public interface AuthorsManagement {
+public class PublicationQuery {
 }

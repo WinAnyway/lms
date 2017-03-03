@@ -1,5 +1,7 @@
 package pl.com.kubachmielowiec.model;
 
+import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -46,7 +48,7 @@ public class Publication {
         this.available = true;
     }
 
-    public void change(ChangePublicationCommand cmd) {
+    public void change(UpdatePublicationCommand cmd) {
         this.title = cmd.getTitle();
         this.description = cmd.getDescription();
         this.authors = cmd.getAuthors();
