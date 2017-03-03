@@ -1,6 +1,12 @@
 package pl.com.kubachmielowiec.application;
 
-public interface ClientReminder {
+public class ClientReminder {
 
-    void remindAboutReturn(Long clientId);
+    public void remindAboutReturnViaSms(Long clientId) {
+
+    }
+
+    public void remindAboutReturnViaEmail(Long clientId) {
+
+    }
 }

@@ -3,7 +3,6 @@ package pl.com.kubachmielowiec.infrastructure;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.com.kubachmielowiec.application.*;
-import pl.com.kubachmielowiec.application.impl.EmailClientReminder;
 import pl.com.kubachmielowiec.application.impl.StandardLoaningProcess;
 import pl.com.kubachmielowiec.model.ClientRepository;
 import pl.com.kubachmielowiec.model.PublicationRepository;
@@ -39,6 +38,6 @@ public class Config {
 
     @Bean
     public ClientReminder clientReminder() {
-        return new EmailClientReminder();
+        return new ClientReminder();
     }
 }
