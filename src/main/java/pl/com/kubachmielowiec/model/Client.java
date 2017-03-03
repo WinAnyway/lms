@@ -1,9 +1,7 @@
 package pl.com.kubachmielowiec.model;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Client {
@@ -21,4 +19,13 @@ public class Client {
     String idNumber;
     String phoneNumber;
     String email;
+
+    @Embedded
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<Loan> loans;
+
+    public Collection<Loan> getLoans() {
+        return loans;
+    }
+
 }

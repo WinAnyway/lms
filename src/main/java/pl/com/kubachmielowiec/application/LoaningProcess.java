@@ -1,5 +1,9 @@
 package pl.com.kubachmielowiec.application;
 
+import pl.com.kubachmielowiec.model.Loan;
+
+import java.util.Collection;
+
 public interface LoaningProcess {
 
     void loan(Long id);
@@ -10,7 +14,7 @@ public interface LoaningProcess {
 
     void remindClientAboutReturn(Long clientId);
 
-    void showClientLoaningHistory(Long clientId);
+    Collection<Loan> getClientLoaningHistory(Long clientId);
 
     Ranking generateTheMostLoanedRanking();
 
