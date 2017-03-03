@@ -18,4 +18,24 @@ public class Author {
     private Date birthDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date deathDate;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public Date getDeathDate() {
+        return deathDate;
+    }
 }

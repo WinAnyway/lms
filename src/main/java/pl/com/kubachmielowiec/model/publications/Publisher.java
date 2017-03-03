@@ -4,4 +4,11 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Publisher {
+
+    String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
