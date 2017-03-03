@@ -38,7 +38,15 @@ public class StandardAuthorsManagement implements AuthorsManagement{
     }
 
     @Override
+    @Transactional
     public AuthorDto getAuthor(Long authorId) {
-        return null;
+        Author author = authorRepository.get(authorId);
+        AuthorDto authorDto = new AuthorDto();
+        authorDto.setFirstName(author.getFirstName());
+        authorDto.setLastName(author.getLastName());
+        authorDto.setNationality(author.getNationality());
+        authorDto.setBirthDate(author.getBirthDate());
+        authorDto.setDeathDate(author.getDeathDate());
+        return authorDto;
     }
 }
