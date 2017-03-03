@@ -1,5 +1,7 @@
 package pl.com.kubachmielowiec.model.publications;
 
+import pl.com.kubachmielowiec.model.commands.CreateAuthorCommand;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,6 +21,14 @@ public class Author {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deathDate;
 
+    public Author(CreateAuthorCommand cmd) {
+        this.firstName = cmd.getFirstName();
+        this.lastName = cmd.getLastName();
+        this.nationality = cmd.getNationality();
+        this.birthDate = cmd.getBirthDate();
+        this.deathDate = cmd.getDeathDate();
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -37,5 +47,9 @@ public class Author {
 
     public Date getDeathDate() {
         return deathDate;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
