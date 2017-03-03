@@ -1,10 +1,14 @@
 package pl.com.kubachmielowiec.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Author {
+
+    @Id
+    @GeneratedValue
+    Long id;
 
     private String firstName;
     private String lastName;
@@ -13,7 +17,7 @@ public class Author {
     private Nationality nationality;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate birthDate;
+    private Date birthDate;
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate deathDate;
+    private Date deathDate;
 }

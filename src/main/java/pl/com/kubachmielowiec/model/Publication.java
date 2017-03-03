@@ -1,13 +1,17 @@
 package pl.com.kubachmielowiec.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
 public class Publication {
 
-    @EmbeddedId
+    @Id
+    @GeneratedValue
+    Long id;
+
+    @Embedded
     private PublicationCode publicationCode;
 
     String title;
@@ -20,14 +24,61 @@ public class Publication {
     ISBN isbn;
 
     @Temporal(TemporalType.TIMESTAMP)
-    LocalDate published;
+    Date published;
 
     @Embedded
     Publisher publisher;
 
     @OneToMany
-    @Enumerated(EnumType.STRING)
     Set<Genre> genres;
 
     boolean available;
+
+    public void loan() {
+        if (!available)
+            throw new IllegalStateException(String.format("Publication %d is not available for loaning", id));
+        this.available = false;
+    }
+
+    public void giveBack() {
+        if (available)
+            throw new IllegalStateException(String.format("Publication %d is already returned", id));
+        this.available = true;
+    }
+
+    public PublicationCode getPublicationCode() {
+        return publicationCode;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public ISBN getIsbn() {
+        return isbn;
+    }
+
+    public Date getPublished() {
+        return published;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
 }

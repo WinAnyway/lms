@@ -15,4 +15,5 @@ public interface LoaningProcess {
     void showClientLoaningHistory(Long clientId);
 
     Ranking generateTheMostLoanedRanking();
+
 }
