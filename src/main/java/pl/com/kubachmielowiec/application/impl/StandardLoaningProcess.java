@@ -1,5 +1,6 @@
 package pl.com.kubachmielowiec.application.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.*;
 import pl.com.kubachmielowiec.model.*;
 
@@ -23,12 +24,14 @@ public class StandardLoaningProcess implements LoaningProcess {
     }
 
     @Override
+    @Transactional
     public void loan(Long publicationId) {
         Publication publication = publicationRepository.get(publicationId);
         publication.loan();
     }
 
     @Override
+    @Transactional
     public void giveBack(Long publicationId) {
         Publication publication = publicationRepository.get(publicationId);
         publication.giveBack();
@@ -45,6 +48,7 @@ public class StandardLoaningProcess implements LoaningProcess {
     }
 
     @Override
+    @Transactional
     public Collection<Loan> getClientLoaningHistory(Long clientId) {
         Client client = clientRepository.get(clientId);
         return client.getLoans();
