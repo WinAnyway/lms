@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.model;
+package pl.com.kubachmielowiec.model.publications;
 
 import javax.persistence.Embeddable;
 

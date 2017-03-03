@@ -1,8 +1,8 @@
 package pl.com.kubachmielowiec.model.commands;
 
-import pl.com.kubachmielowiec.model.Author;
-import pl.com.kubachmielowiec.model.Genre;
-import pl.com.kubachmielowiec.model.ISBN;
+import pl.com.kubachmielowiec.model.publications.Author;
+import pl.com.kubachmielowiec.model.publications.Genre;
+import pl.com.kubachmielowiec.model.publications.ISBN;
 
 import java.util.Date;
 import java.util.Set;

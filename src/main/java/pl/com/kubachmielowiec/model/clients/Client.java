@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.model;
+package pl.com.kubachmielowiec.model.clients;
 
 import javax.persistence.*;
 import java.util.Collection;

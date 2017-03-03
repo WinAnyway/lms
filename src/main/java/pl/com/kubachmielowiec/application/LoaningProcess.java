@@ -1,6 +1,6 @@
 package pl.com.kubachmielowiec.application;
 
-import pl.com.kubachmielowiec.model.Loan;
+import pl.com.kubachmielowiec.model.clients.Loan;
 
 import java.util.Collection;
 

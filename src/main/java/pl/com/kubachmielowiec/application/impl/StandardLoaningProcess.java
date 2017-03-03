@@ -2,7 +2,11 @@ package pl.com.kubachmielowiec.application.impl;
 
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.*;
-import pl.com.kubachmielowiec.model.*;
+import pl.com.kubachmielowiec.model.clients.Client;
+import pl.com.kubachmielowiec.model.clients.ClientRepository;
+import pl.com.kubachmielowiec.model.clients.Loan;
+import pl.com.kubachmielowiec.model.publications.Publication;
+import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
 import java.util.Collection;
 

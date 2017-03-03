@@ -1,7 +1,7 @@
 package pl.com.kubachmielowiec.infrastructure;
 
-import pl.com.kubachmielowiec.model.Publication;
-import pl.com.kubachmielowiec.model.PublicationRepository;
+import pl.com.kubachmielowiec.model.publications.Publication;
+import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

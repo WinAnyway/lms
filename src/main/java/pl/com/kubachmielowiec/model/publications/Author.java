@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.model;
+package pl.com.kubachmielowiec.model.publications;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,9 +12,7 @@ public class Author {
 
     private String firstName;
     private String lastName;
-
-    @Enumerated(EnumType.STRING)
-    private Nationality nationality;
+    private String nationality;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;

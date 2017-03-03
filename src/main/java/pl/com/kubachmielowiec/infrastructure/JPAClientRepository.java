@@ -1,7 +1,7 @@
 package pl.com.kubachmielowiec.infrastructure;
 
-import pl.com.kubachmielowiec.model.Client;
-import pl.com.kubachmielowiec.model.ClientRepository;
+import pl.com.kubachmielowiec.model.clients.Client;
+import pl.com.kubachmielowiec.model.clients.ClientRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

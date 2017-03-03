@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.com.kubachmielowiec.application.*;
 import pl.com.kubachmielowiec.application.impl.StandardLoaningProcess;
-import pl.com.kubachmielowiec.model.ClientRepository;
-import pl.com.kubachmielowiec.model.PublicationRepository;
+import pl.com.kubachmielowiec.model.clients.ClientRepository;
+import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
 @Configuration
 public class Config {
