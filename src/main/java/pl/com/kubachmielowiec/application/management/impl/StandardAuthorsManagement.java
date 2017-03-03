@@ -1,5 +1,6 @@
 package pl.com.kubachmielowiec.application.management.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.dtos.AuthorDto;
 import pl.com.kubachmielowiec.application.management.AuthorsManagement;
 import pl.com.kubachmielowiec.model.commands.CreateAuthorCommand;
@@ -16,6 +17,7 @@ public class StandardAuthorsManagement implements AuthorsManagement{
     }
 
     @Override
+    @Transactional
     public Long createAuthor(CreateAuthorCommand cmd) {
         Author author = new Author(cmd);
         authorRepository.put(author);
@@ -23,13 +25,16 @@ public class StandardAuthorsManagement implements AuthorsManagement{
     }
 
     @Override
+    @Transactional
     public void updateAuthor(UpdateAuthorCommand cmd) {
-
+        Author author = authorRepository.get(cmd.getAuthorId());
+        author.update(cmd);
     }
 
     @Override
-    public void deleteAuthor() {
-
+    @Transactional
+    public void deleteAuthor(Long authorId) {
+        authorRepository.remove(authorId);
     }
 
     @Override

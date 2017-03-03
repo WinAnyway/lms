@@ -10,7 +10,7 @@ public interface AuthorsManagement {
 
     void updateAuthor(UpdateAuthorCommand cmd);
 
-    void deleteAuthor();
+    void deleteAuthor(Long authorId);
 
     AuthorDto getAuthor(Long authorId);
 

@@ -10,7 +10,7 @@ public interface ClientsManagement {
 
     void updateClient(UpdateClientCommand cmd);
 
-    void deleteClient();
+    void deleteClient(Long clientId);
 
     ClientDto getClient(Long clientId);
 
