@@ -13,6 +13,15 @@ public class StandardLoaningProcess implements LoaningProcess {
     private RankingGenerator rankingGenerator;
     private ClientReminder clientReminder;
 
+    public StandardLoaningProcess(PublicationRepository publicationRepository, ClientRepository clientRepository,
+                                  RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder) {
+        this.publicationRepository = publicationRepository;
+        this.clientRepository = clientRepository;
+        this.raportGenerator = raportGenerator;
+        this.rankingGenerator = rankingGenerator;
+        this.clientReminder = clientReminder;
+    }
+
     @Override
     public void loan(Long publicationId) {
         Publication publication = publicationRepository.get(publicationId);
