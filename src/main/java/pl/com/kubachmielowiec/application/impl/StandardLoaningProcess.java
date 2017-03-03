@@ -47,8 +47,13 @@ public class StandardLoaningProcess implements LoaningProcess {
     }
 
     @Override
-    public void remindClientAboutReturn(Long clientId) {
-        clientReminder.remindAboutReturn(clientId);
+    public void remindClientAboutReturnViaEmail(Long clientId) {
+        clientReminder.remindAboutReturnViaEmail(clientId);
+    }
+
+    @Override
+    public void remindClientAboutReturnViaSms(Long clientId) {
+        clientReminder.remindAboutReturnViaSms(clientId);
     }
 
     @Override
