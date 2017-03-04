@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Transactional
 public class StandardClientsManagement implements ClientsManagement{
 
     ClientRepository clientRepository;
@@ -23,7 +24,6 @@ public class StandardClientsManagement implements ClientsManagement{
     }
 
     @Override
-    @Transactional
     public Long createClient(CreateClientCommand cmd) {
         Client client = new Client(cmd);
         clientRepository.put(client);
@@ -31,20 +31,17 @@ public class StandardClientsManagement implements ClientsManagement{
     }
 
     @Override
-    @Transactional
     public void updateClient(UpdateClientCommand cmd) {
         Client client = clientRepository.get(cmd.getClientId());
         client.update(cmd);
     }
 
     @Override
-    @Transactional
     public void deleteClient(Long clientId) {
         clientRepository.remove(clientId);
     }
 
     @Override
-    @Transactional
     public ClientDto getClient(Long clientId) {
         Client client = clientRepository.get(clientId);
         ClientDto dto = new ClientDto();

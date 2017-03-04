@@ -4,7 +4,7 @@ import pl.com.kubachmielowiec.model.commands.CreateAuthorCommand;
 import pl.com.kubachmielowiec.model.commands.UpdateAuthorCommand;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Author {
@@ -18,9 +18,9 @@ public class Author {
     private String nationality;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date birthDate;
+    private LocalDate birthDate;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date deathDate;
+    private LocalDate deathDate;
 
     public Author(CreateAuthorCommand cmd) {
         this.firstName = cmd.getFirstName();
@@ -50,11 +50,11 @@ public class Author {
         return nationality;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public Date getDeathDate() {
+    public LocalDate getDeathDate() {
         return deathDate;
     }
 

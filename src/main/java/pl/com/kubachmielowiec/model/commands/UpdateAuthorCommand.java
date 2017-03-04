@@ -1,14 +1,14 @@
 package pl.com.kubachmielowiec.model.commands;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class UpdateAuthorCommand {
     private Long authorId;
     private String firstName;
     private String lastName;
     private String nationality;
-    private Date birthDate;
-    private Date deathDate;
+    private LocalDate birthDate;
+    private LocalDate deathDate;
 
     public Long getAuthorId() {
         return authorId;
@@ -38,19 +38,19 @@ public class UpdateAuthorCommand {
         this.nationality = nationality;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getDeathDate() {
+    public LocalDate getDeathDate() {
         return deathDate;
     }
 
-    public void setDeathDate(Date deathDate) {
+    public void setDeathDate(LocalDate deathDate) {
         this.deathDate = deathDate;
     }
 }

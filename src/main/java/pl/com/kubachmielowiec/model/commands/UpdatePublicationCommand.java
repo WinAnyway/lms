@@ -4,7 +4,7 @@ import pl.com.kubachmielowiec.model.publications.Author;
 import pl.com.kubachmielowiec.model.publications.Genre;
 import pl.com.kubachmielowiec.model.publications.ISBN;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class UpdatePublicationCommand {
@@ -13,7 +13,7 @@ public class UpdatePublicationCommand {
     private String description;
     private Set<Author> authors;
     private ISBN isbn;
-    private Date published;
+    private LocalDate published;
     private Set<Genre> genres;
 
     public String getTitle() {
@@ -48,11 +48,11 @@ public class UpdatePublicationCommand {
         this.isbn = isbn;
     }
 
-    public Date getPublished() {
+    public LocalDate getPublished() {
         return published;
     }
 
-    public void setPublished(Date published) {
+    public void setPublished(LocalDate published) {
         this.published = published;
     }
 

@@ -3,7 +3,7 @@ package pl.com.kubachmielowiec.model.publications;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -26,7 +26,7 @@ public class Publication {
     ISBN isbn;
 
     @Temporal(TemporalType.TIMESTAMP)
-    Date published;
+    LocalDate published;
 
     @Embedded
     Publisher publisher;
@@ -77,7 +77,7 @@ public class Publication {
         return isbn;
     }
 
-    public Date getPublished() {
+    public LocalDate getPublished() {
         return published;
     }
 

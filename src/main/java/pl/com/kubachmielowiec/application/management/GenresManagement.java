@@ -6,9 +6,9 @@ public interface GenresManagement {
 
     Long createGenre(String genreName);
 
-    void updateGenre(String newGenreName);
+    void updateGenre(String newGenreName, Long genreId);
 
-    void deleteGenre();
+    void deleteGenre(Long genreId);
 
     GenreDto getGenre(Long genreId);
 }
