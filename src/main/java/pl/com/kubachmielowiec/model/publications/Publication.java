@@ -1,5 +1,6 @@
 package pl.com.kubachmielowiec.model.publications;
 
+import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
 
 import javax.persistence.*;
@@ -36,6 +37,17 @@ public class Publication {
 
     boolean available;
 
+    public Publication(CreatePublicationCommand cmd) {
+        this.title = cmd.getTitle();
+        this.description = cmd.getDescription();
+        this.authors = cmd.getAuthors();
+        this.isbn = cmd.getIsbn();
+        this.published = cmd.getPublished();
+        this.publisher = cmd.getPublisher();
+        this.genres = cmd.getGenres();
+        this.available = true;
+    }
+
     public void loan() {
         if (!available)
             throw new IllegalStateException(String.format("Publication %d is not available for loaning", id));
@@ -54,6 +66,7 @@ public class Publication {
         this.authors = cmd.getAuthors();
         this.isbn = cmd.getIsbn();
         this.published = cmd.getPublished();
+        this.publisher = cmd.getPublisher();
         this.genres = cmd.getGenres();
     }
 
@@ -91,5 +104,13 @@ public class Publication {
 
     public boolean isAvailable() {
         return available;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

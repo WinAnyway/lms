@@ -5,6 +5,7 @@ import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 public class JPAPublicationRepository implements PublicationRepository{
 
@@ -19,5 +20,12 @@ public class JPAPublicationRepository implements PublicationRepository{
     @Override
     public Publication get(Long id) {
         return entityManager.find(Publication.class, id);
+    }
+
+    @Override
+    public void remove(Long publicationId) {
+        Query query = entityManager.createQuery("DELETE FROM Publication p WHERE p.id = :id");
+        query.setParameter("id", publicationId);
+        query.executeUpdate();
     }
 }

@@ -2,7 +2,7 @@ package pl.com.kubachmielowiec.application.dtos;
 
 import pl.com.kubachmielowiec.model.publications.ISBN;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class PublicationDto {
@@ -10,7 +10,7 @@ public class PublicationDto {
     private String description;
     private Set<AuthorDto> authors;
     private ISBN isbn;
-    private Date published;
+    private LocalDate published;
     private String publisher;
     private Set<String> genres;
     private boolean available;
@@ -48,11 +48,11 @@ public class PublicationDto {
         return isbn;
     }
 
-    public void setPublished(Date published) {
+    public void setPublished(LocalDate published) {
         this.published = published;
     }
 
-    public Date getPublished() {
+    public LocalDate getPublished() {
         return published;
     }
 

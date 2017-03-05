@@ -5,4 +5,6 @@ public interface PublicationRepository {
     void put(Publication publication);
 
     Publication get(Long id);
+
+    void remove(Long publicationId);
 }

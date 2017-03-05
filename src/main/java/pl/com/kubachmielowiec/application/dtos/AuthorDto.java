@@ -1,14 +1,14 @@
 package pl.com.kubachmielowiec.application.dtos;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class AuthorDto {
 
     private String firstName;
     private String lastName;
     private String nationality;
-    private Date birthDate;
-    private Date deathDate;
+    private LocalDate birthDate;
+    private LocalDate deathDate;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -34,19 +34,19 @@ public class AuthorDto {
         return nationality;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setDeathDate(Date deathDate) {
+    public void setDeathDate(LocalDate deathDate) {
         this.deathDate = deathDate;
     }
 
-    public Date getDeathDate() {
+    public LocalDate getDeathDate() {
         return deathDate;
     }
 }
