@@ -27,7 +27,6 @@ public class JPAPublicationCatalog implements PublicationCatalog{
     @Override
     public PublicationDto get(Long publicationId) {
         Publication publication = entityManager.find(Publication.class, publicationId);
-
         PublicationDto dto = new PublicationDto();
         dto.setTitle(publication.getTitle());
         dto.setDescription(publication.getDescription());
