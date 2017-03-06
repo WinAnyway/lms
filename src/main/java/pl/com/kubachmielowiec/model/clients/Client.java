@@ -25,7 +25,6 @@ public class Client {
     String email;
 
     @Embedded
-    @OneToMany(cascade = CascadeType.ALL)
     private Collection<Loan> loans;
 
     public Client(CreateClientCommand cmd) {

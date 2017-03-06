@@ -1,16 +1,14 @@
 package pl.com.kubachmielowiec.application.dtos;
 
-import pl.com.kubachmielowiec.model.publications.ISBN;
-
-import java.time.LocalDate;
+import java.time.Year;
 import java.util.Set;
 
 public class PublicationDto {
     private String title;
     private String description;
     private Set<AuthorDto> authors;
-    private ISBN isbn;
-    private LocalDate published;
+    private String isbn;
+    private Year published;
     private String publisher;
     private Set<String> genres;
     private boolean available;
@@ -40,19 +38,19 @@ public class PublicationDto {
         return authors;
     }
 
-    public void setIsbn(ISBN isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public ISBN getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setPublished(LocalDate published) {
+    public void setPublished(Year published) {
         this.published = published;
     }
 
-    public LocalDate getPublished() {
+    public Year getPublished() {
         return published;
     }
 

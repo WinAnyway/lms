@@ -11,17 +11,56 @@ import pl.com.kubachmielowiec.model.publications.Publication;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class JPAPublicationCatalog implements PublicationCatalog{
+public class JPAPublicationCatalog implements PublicationCatalog {
 
     @PersistenceContext
     EntityManager entityManager;
 
     @Override
     public PublicationSearchResults search(PublicationQuery publicationQuery) {
-        return null;
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        PublicationSearchResults results = new PublicationSearchResults();
+        List<PublicationDto> dtos = queryPublications(publicationQuery, criteriaBuilder);
+        results.setPublications(dtos);
+        return results;
+    }
+
+    private List<PublicationDto> queryPublications(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder) {
+        CriteriaQuery<Publication> criteriaQuery = criteriaBuilder.createQuery(Publication.class);
+        Root<Publication> root = criteriaQuery.from(Publication.class);
+        root.fetch("authors", JoinType.LEFT);
+        root.fetch("genres", JoinType.LEFT);
+        Set<Predicate> predicates = new HashSet<>();
+        if (publicationQuery.getPhrase() != null) {
+            String likeExpression = "%" + publicationQuery.getPhrase() + "%";
+            predicates.add(criteriaBuilder.or(
+                    criteriaBuilder.like(root.get("title"), likeExpression),
+                    criteriaBuilder.like(root.get("description"), likeExpression)));
+        }
+        if (publicationQuery.getIsbn() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("isbn"), publicationQuery.getIsbn()));
+        }
+        if (publicationQuery.getPublisher() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("publisher.name"), publicationQuery.getPublisher()));
+        }
+        if (publicationQuery.getPublicationYear() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("publicationYear"), publicationQuery.getPublicationYear()));
+        }
+        if (publicationQuery.getGenre() != null) {
+            predicates.add(criteriaBuilder.isMember(publicationQuery.getGenre(), root.get("genres")));
+        }
+        if (publicationQuery.getAuthor() != null) {
+            predicates.add(criteriaBuilder.isMember(publicationQuery.getAuthor(), root.get("authors.name")));
+        }
+        criteriaQuery.where(predicates.toArray(new Predicate[]{}));
+        Query query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
     }
 
     @Override
@@ -32,7 +71,7 @@ public class JPAPublicationCatalog implements PublicationCatalog{
         dto.setDescription(publication.getDescription());
         dto.setAuthors(changeAuthorsToDtos(publication.getAuthors()));
         dto.setIsbn(publication.getIsbn());
-        dto.setPublished(publication.getPublished());
+        dto.setPublished(publication.getPublicationYear());
         dto.setPublisher(publication.getPublisher().toString());
         dto.setGenres(changeGenresToStrings(publication.getGenres()));
         dto.setAvailable(publication.isAvailable());
@@ -42,14 +81,14 @@ public class JPAPublicationCatalog implements PublicationCatalog{
 
     private Set<String> changeGenresToStrings(Set<Genre> genres) {
         Set<String> genreStrings = new HashSet<>();
-        for(Genre genre : genres)
+        for (Genre genre : genres)
             genreStrings.add(genre.getName());
         return genreStrings;
     }
 
     private Set<AuthorDto> changeAuthorsToDtos(Set<Author> authors) {
         Set<AuthorDto> dtos = new HashSet<>();
-        for(Author author : authors) {
+        for (Author author : authors) {
             AuthorDto dto = new AuthorDto();
             dto.setFirstName(author.getFirstName());
             dto.setLastName(author.getLastName());

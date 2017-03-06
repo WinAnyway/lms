@@ -4,7 +4,7 @@ import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.Year;
 import java.util.Set;
 
 @Entity
@@ -23,11 +23,10 @@ public class Publication {
     @OneToMany
     Set<Author> authors;
 
-    @Embedded
-    ISBN isbn;
+    String isbn;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    LocalDate published;
+//    @Temporal(TemporalType.TIMESTAMP)
+    Year publicationYear;
 
     @Embedded
     Publisher publisher;
@@ -42,7 +41,7 @@ public class Publication {
         this.description = cmd.getDescription();
         this.authors = cmd.getAuthors();
         this.isbn = cmd.getIsbn();
-        this.published = cmd.getPublished();
+        this.publicationYear = cmd.getPublished();
         this.publisher = cmd.getPublisher();
         this.genres = cmd.getGenres();
         this.available = true;
@@ -65,7 +64,7 @@ public class Publication {
         this.description = cmd.getDescription();
         this.authors = cmd.getAuthors();
         this.isbn = cmd.getIsbn();
-        this.published = cmd.getPublished();
+        this.publicationYear = cmd.getPublished();
         this.publisher = cmd.getPublisher();
         this.genres = cmd.getGenres();
     }
@@ -86,12 +85,12 @@ public class Publication {
         return authors;
     }
 
-    public ISBN getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public LocalDate getPublished() {
-        return published;
+    public Year getPublicationYear() {
+        return publicationYear;
     }
 
     public Publisher getPublisher() {

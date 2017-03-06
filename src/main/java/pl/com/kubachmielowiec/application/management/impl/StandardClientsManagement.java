@@ -60,7 +60,7 @@ public class StandardClientsManagement implements ClientsManagement{
         Set<LoanDto> dtos = new HashSet<>();
         for(Loan loan : loans) {
             LoanDto dto = new LoanDto();
-            dto.setPublication(loan.getPublication().getTitle());
+            dto.setPublication(loan.getPublicationName());
             dto.setLoanDate(loan.getLoanDate());
             dtos.add(dto);
         }

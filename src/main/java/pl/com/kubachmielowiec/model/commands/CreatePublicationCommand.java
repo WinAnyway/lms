@@ -2,18 +2,17 @@ package pl.com.kubachmielowiec.model.commands;
 
 import pl.com.kubachmielowiec.model.publications.Author;
 import pl.com.kubachmielowiec.model.publications.Genre;
-import pl.com.kubachmielowiec.model.publications.ISBN;
 import pl.com.kubachmielowiec.model.publications.Publisher;
 
-import java.time.LocalDate;
+import java.time.Year;
 import java.util.Set;
 
 public class CreatePublicationCommand {
     private String title;
     private String description;
     private Set<Author> authors;
-    private ISBN isbn;
-    private LocalDate published;
+    private String isbn;
+    private Year published;
     private Publisher publisher;
     private Set<Genre> genres;
 
@@ -41,19 +40,19 @@ public class CreatePublicationCommand {
         this.authors = authors;
     }
 
-    public ISBN getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(ISBN isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public LocalDate getPublished() {
+    public Year getPublished() {
         return published;
     }
 
-    public void setPublished(LocalDate published) {
+    public void setPublished(Year published) {
         this.published = published;
     }
 

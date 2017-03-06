@@ -17,9 +17,9 @@ public class Author {
     private String lastName;
     private String nationality;
 
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate birthDate;
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate deathDate;
 
     public Author(CreateAuthorCommand cmd) {

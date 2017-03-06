@@ -1,14 +1,25 @@
 package pl.com.kubachmielowiec.application;
 
+import java.time.Year;
+
 public class PublicationQuery {
 
     String phrase;
     String isbn;
-    String published;
+    Year publicationYear;
     String publisher;
     String genre;
+    String author;
 
     boolean available;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getPhrase() {
         return phrase;
@@ -26,12 +37,12 @@ public class PublicationQuery {
         this.isbn = isbn;
     }
 
-    public String getPublished() {
-        return published;
+    public Year getPublicationYear() {
+        return publicationYear;
     }
 
-    public void setPublished(String published) {
-        this.published = published;
+    public void setPublicationYear(Year publicationYear) {
+        this.publicationYear = publicationYear;
     }
 
     public String getPublisher() {

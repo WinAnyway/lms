@@ -7,9 +7,11 @@ import pl.com.kubachmielowiec.application.impl.StandardLoaningProcess;
 import pl.com.kubachmielowiec.application.management.AuthorsManagement;
 import pl.com.kubachmielowiec.application.management.ClientsManagement;
 import pl.com.kubachmielowiec.application.management.GenresManagement;
+import pl.com.kubachmielowiec.application.management.PublicationsManagement;
 import pl.com.kubachmielowiec.application.management.impl.StandardAuthorsManagement;
 import pl.com.kubachmielowiec.application.management.impl.StandardClientsManagement;
 import pl.com.kubachmielowiec.application.management.impl.StandardGenresManagement;
+import pl.com.kubachmielowiec.application.management.impl.StandardPublicationsManagement;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
 import pl.com.kubachmielowiec.model.publications.AuthorRepository;
 import pl.com.kubachmielowiec.model.publications.GenresRepository;
@@ -37,6 +39,16 @@ public class Config {
     @Bean
     public GenresManagement genresManagement(GenresRepository genresRepository) {
         return new StandardGenresManagement(genresRepository);
+    }
+
+    @Bean
+    PublicationsManagement publicationsManagement(PublicationRepository publicationRepository) {
+        return new StandardPublicationsManagement(publicationRepository);
+    }
+
+    @Bean
+    PublicationCatalog publicationCatalog() {
+        return new JPAPublicationCatalog();
     }
 
     @Bean

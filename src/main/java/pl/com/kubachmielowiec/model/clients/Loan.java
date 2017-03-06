@@ -1,25 +1,22 @@
 package pl.com.kubachmielowiec.model.clients;
 
-import pl.com.kubachmielowiec.model.publications.Publication;
-
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+@Embeddable
 public class Loan {
 
-    @Id
+    /*@Id
     @GeneratedValue
-    private Long id;
+    private Long id;*/
 
-    @OneToOne
-    private Publication publication;
+    private String publicationName;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date loanDate;
 
-    public Publication getPublication() {
-        return publication;
+    public String getPublicationName() {
+        return publicationName;
     }
 
     public Date getLoanDate() {
