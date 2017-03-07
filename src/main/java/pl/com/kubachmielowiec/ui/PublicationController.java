@@ -7,6 +7,7 @@ import pl.com.kubachmielowiec.application.PublicationSearchResults;
 import pl.com.kubachmielowiec.application.dtos.PublicationDto;
 import pl.com.kubachmielowiec.application.management.PublicationsManagement;
 import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
+import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
 
 @RestController
 @RequestMapping("/publications")
@@ -31,7 +32,18 @@ public class PublicationController {
     }
 
     @GetMapping("/{publicationId}")
-    public PublicationDto get(@PathVariable Long publicationId) {
+    public PublicationDto show(@PathVariable Long publicationId) {
         return catalog.get(publicationId);
+    }
+
+    @PutMapping("/{publicationId}")
+    public void update(@PathVariable Long publicationId, @RequestBody UpdatePublicationCommand cmd) {
+        cmd.setId(publicationId);
+        publicationsManagement.updatePublication(cmd);
+    }
+
+    @DeleteMapping("/{publicationId}")
+    public void destroy(@PathVariable Long publicationId) {
+        publicationsManagement.deletePublication(publicationId);
     }
 }

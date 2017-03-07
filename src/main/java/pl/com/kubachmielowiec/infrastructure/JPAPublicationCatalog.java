@@ -36,32 +36,61 @@ public class JPAPublicationCatalog implements PublicationCatalog {
         Root<Publication> root = criteriaQuery.from(Publication.class);
         root.fetch("authors", JoinType.LEFT);
         root.fetch("genres", JoinType.LEFT);
+        Set<Predicate> predicates = createPredicates(publicationQuery, criteriaBuilder, root);
+        criteriaQuery.where(predicates.toArray(new Predicate[]{}));
+        Query query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
+    }
+
+    private Set<Predicate> createPredicates(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root) {
         Set<Predicate> predicates = new HashSet<>();
+        addPhrasePredicate(publicationQuery, criteriaBuilder, root, predicates);
+        addIsbnPredicate(publicationQuery, criteriaBuilder, root, predicates);
+        addPublisherPredicate(publicationQuery, criteriaBuilder, root, predicates);
+        addPublicationYearPredicate(publicationQuery, criteriaBuilder, root, predicates);
+        addGenrePredicate(publicationQuery, criteriaBuilder, root, predicates);
+        addAuthorPredicate(publicationQuery, criteriaBuilder, root, predicates);
+        return predicates;
+    }
+
+    private void addAuthorPredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
+        if (publicationQuery.getAuthor() != null) {
+            //TODO
+            predicates.add(criteriaBuilder.isMember(publicationQuery.getAuthor(), root.get("authors.firstName")));
+        }
+    }
+
+    private void addGenrePredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
+        if (publicationQuery.getGenre() != null) {
+            predicates.add(criteriaBuilder.isMember(publicationQuery.getGenre(), root.get("genres")));
+        }
+    }
+
+    private void addPublicationYearPredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
+        if (publicationQuery.getPublicationYear() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("publicationYear"), publicationQuery.getPublicationYear()));
+        }
+    }
+
+    private void addPublisherPredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
+        if (publicationQuery.getPublisher() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("publisher.name"), publicationQuery.getPublisher()));
+        }
+    }
+
+    private void addIsbnPredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
+        if (publicationQuery.getIsbn() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("isbn"), publicationQuery.getIsbn()));
+        }
+    }
+
+    private void addPhrasePredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
         if (publicationQuery.getPhrase() != null) {
             String likeExpression = "%" + publicationQuery.getPhrase() + "%";
             predicates.add(criteriaBuilder.or(
                     criteriaBuilder.like(root.get("title"), likeExpression),
                     criteriaBuilder.like(root.get("description"), likeExpression)));
         }
-        if (publicationQuery.getIsbn() != null) {
-            predicates.add(criteriaBuilder.equal(root.get("isbn"), publicationQuery.getIsbn()));
-        }
-        if (publicationQuery.getPublisher() != null) {
-            predicates.add(criteriaBuilder.equal(root.get("publisher.name"), publicationQuery.getPublisher()));
-        }
-        if (publicationQuery.getPublicationYear() != null) {
-            predicates.add(criteriaBuilder.equal(root.get("publicationYear"), publicationQuery.getPublicationYear()));
-        }
-        if (publicationQuery.getGenre() != null) {
-            predicates.add(criteriaBuilder.isMember(publicationQuery.getGenre(), root.get("genres")));
-        }
-        if (publicationQuery.getAuthor() != null) {
-            //TODO
-            predicates.add(criteriaBuilder.isMember(publicationQuery.getAuthor(), root.get("authors.firstName")));
-        }
-        criteriaQuery.where(predicates.toArray(new Predicate[]{}));
-        Query query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();
     }
 
     @Override
