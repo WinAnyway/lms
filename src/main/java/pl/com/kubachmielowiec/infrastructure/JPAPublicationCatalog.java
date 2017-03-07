@@ -56,7 +56,8 @@ public class JPAPublicationCatalog implements PublicationCatalog {
             predicates.add(criteriaBuilder.isMember(publicationQuery.getGenre(), root.get("genres")));
         }
         if (publicationQuery.getAuthor() != null) {
-            predicates.add(criteriaBuilder.isMember(publicationQuery.getAuthor(), root.get("authors.name")));
+            //TODO
+            predicates.add(criteriaBuilder.isMember(publicationQuery.getAuthor(), root.get("authors.firstName")));
         }
         criteriaQuery.where(predicates.toArray(new Predicate[]{}));
         Query query = entityManager.createQuery(criteriaQuery);
@@ -66,6 +67,11 @@ public class JPAPublicationCatalog implements PublicationCatalog {
     @Override
     public PublicationDto get(Long publicationId) {
         Publication publication = entityManager.find(Publication.class, publicationId);
+        PublicationDto dto = createPublicationDto(publication);
+        return dto;
+    }
+
+    private PublicationDto createPublicationDto(Publication publication) {
         PublicationDto dto = new PublicationDto();
         dto.setTitle(publication.getTitle());
         dto.setDescription(publication.getDescription());
@@ -75,7 +81,6 @@ public class JPAPublicationCatalog implements PublicationCatalog {
         dto.setPublisher(publication.getPublisher().toString());
         dto.setGenres(changeGenresToStrings(publication.getGenres()));
         dto.setAvailable(publication.isAvailable());
-
         return dto;
     }
 

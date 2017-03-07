@@ -27,6 +27,8 @@ public class Client {
     @Embedded
     private Collection<Loan> loans;
 
+    Client(){}
+
     public Client(CreateClientCommand cmd) {
         this.firstName = cmd.getFirstName();
         this.lastName = cmd.getLastName();

@@ -1,10 +1,10 @@
 package pl.com.kubachmielowiec.ui;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.com.kubachmielowiec.application.PublicationCatalog;
+import pl.com.kubachmielowiec.application.PublicationQuery;
+import pl.com.kubachmielowiec.application.PublicationSearchResults;
+import pl.com.kubachmielowiec.application.dtos.PublicationDto;
 import pl.com.kubachmielowiec.application.management.PublicationsManagement;
 import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 
@@ -23,5 +23,15 @@ public class PublicationController {
     @PostMapping
     public Long create(@RequestBody CreatePublicationCommand cmd) {
         return publicationsManagement.createPublication(cmd);
+    }
+
+    @GetMapping
+    public PublicationSearchResults search(PublicationQuery publicationQuery) {
+        return catalog.search(publicationQuery);
+    }
+
+    @GetMapping("/{publicationId}")
+    public PublicationDto get(@PathVariable Long publicationId) {
+        return catalog.get(publicationId);
     }
 }

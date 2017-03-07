@@ -22,6 +22,8 @@ public class Author {
 //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate deathDate;
 
+    Author(){}
+
     public Author(CreateAuthorCommand cmd) {
         this.firstName = cmd.getFirstName();
         this.lastName = cmd.getLastName();
