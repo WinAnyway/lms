@@ -38,9 +38,11 @@ public class StandardLoaningProcess implements LoaningProcess {
 
     @Override
     @Transactional
-    public void giveBack(Long publicationId) {
+    public void giveBack(Long publicationId, Long clientId) {
         Publication publication = publicationRepository.get(publicationId);
         publication.giveBack();
+        Client client = clientRepository.get(clientId);
+        client.giveBackAPublication(publicationId);
     }
 
     @Override

@@ -8,7 +8,7 @@ public interface LoaningProcess {
 
     void loan(Long publicationId, Long clientId);
 
-    void giveBack(Long id);
+    void giveBack(Long publicationId, Long clientId);
 
     LoanRaport generateExpiredReturnDateRaport();
 

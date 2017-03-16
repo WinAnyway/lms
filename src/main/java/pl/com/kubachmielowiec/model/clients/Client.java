@@ -7,8 +7,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 
 @Entity
 public class Client {
@@ -28,7 +29,7 @@ public class Client {
     String email;
 
     @Embedded
-    private Collection<Loan> loans;
+    private List<Loan> loans;
 
     Client(){}
 
@@ -40,7 +41,7 @@ public class Client {
         this.idNumber = cmd.getIdNumber();
         this.phoneNumber = cmd.getPhoneNumber();
         this.email = cmd.getEmail();
-        this.loans = new HashSet<>();
+        this.loans = new ArrayList<>();
     }
 
     public void loanAPublication(Long publicationId) {
@@ -92,5 +93,12 @@ public class Client {
         this.phoneNumber = cmd.getPhoneNumber();
         this.email = cmd.getEmail();
         this.loans = cmd.getLoans();
+    }
+
+    public void giveBackAPublication(Long publicationId) {
+        for(Loan loan : loans) {
+            if (loan.getPublicationId().equals(publicationId))
+                loan.deactivate();
+        }
     }
 }

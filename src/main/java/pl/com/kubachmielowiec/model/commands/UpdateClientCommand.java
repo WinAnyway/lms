@@ -3,7 +3,7 @@ package pl.com.kubachmielowiec.model.commands;
 import pl.com.kubachmielowiec.model.clients.Address;
 import pl.com.kubachmielowiec.model.clients.Loan;
 
-import java.util.Collection;
+import java.util.List;
 
 public class UpdateClientCommand {
     private String firstName;
@@ -14,7 +14,7 @@ public class UpdateClientCommand {
     private String phoneNumber;
     private String email;
     private Long clientId;
-    private Collection<Loan> loans;
+    private List<Loan> loans;
 
     public String getFirstName() {
         return firstName;
@@ -80,11 +80,11 @@ public class UpdateClientCommand {
         this.clientId = clientId;
     }
 
-    public Collection<Loan> getLoans() {
+    public List<Loan> getLoans() {
         return loans;
     }
 
-    public void setLoans(Collection<Loan> loans) {
+    public void setLoans(List<Loan> loans) {
         this.loans = loans;
     }
 }

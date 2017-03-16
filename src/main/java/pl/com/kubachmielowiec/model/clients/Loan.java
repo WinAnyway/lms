@@ -15,21 +15,31 @@ public class Loan {
 
 //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate loanDate;
+    private boolean active;
 
     public Loan(Long publicationId) {
         this.publicationId = publicationId;
-        loanDate = LocalDate.now();
+        this.loanDate = LocalDate.now();
+        this.active = true;
     }
 
     public boolean hasExpired() {
         return ChronoUnit.DAYS.between(loanDate, LocalDate.now()) > 31;
     }
 
-    public Long getPublicationName() {
+    public boolean isActive(){
+        return active;
+    }
+
+    public Long getPublicationId() {
         return publicationId;
     }
 
     public LocalDate getLoanDate() {
         return loanDate;
+    }
+
+    public void deactivate() {
+        this.active = false;
     }
 }
