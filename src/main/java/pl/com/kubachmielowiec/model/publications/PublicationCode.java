@@ -4,5 +4,6 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class PublicationCode {
+    //TODO
 
 }

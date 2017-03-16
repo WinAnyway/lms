@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface LoaningProcess {
 
-    void loan(Long id);
+    void loan(Long publicationId, Long clientId);
 
     void giveBack(Long id);
 

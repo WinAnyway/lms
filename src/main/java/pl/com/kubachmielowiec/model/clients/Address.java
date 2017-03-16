@@ -14,4 +14,6 @@ public class Address {
     String street;
     String homeNumber;
     String postalCode;
+
+
 }

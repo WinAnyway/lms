@@ -29,9 +29,11 @@ public class StandardLoaningProcess implements LoaningProcess {
 
     @Override
     @Transactional
-    public void loan(Long publicationId) {
+    public void loan(Long publicationId, Long clientId) {
         Publication publication = publicationRepository.get(publicationId);
         publication.loan();
+        Client client = clientRepository.get(clientId);
+        client.loanAPublication(publicationId);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package pl.com.kubachmielowiec.model.clients;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Embeddable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Embeddable
 public class Loan {
@@ -10,16 +11,25 @@ public class Loan {
     @GeneratedValue
     private Long id;*/
 
-    private String publicationName;
+    private Long publicationId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date loanDate;
+//    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDate loanDate;
 
-    public String getPublicationName() {
-        return publicationName;
+    public Loan(Long publicationId) {
+        this.publicationId = publicationId;
+        loanDate = LocalDate.now();
     }
 
-    public Date getLoanDate() {
+    public boolean hasExpired() {
+        return ChronoUnit.DAYS.between(loanDate, LocalDate.now()) > 31;
+    }
+
+    public Long getPublicationName() {
+        return publicationId;
+    }
+
+    public LocalDate getLoanDate() {
         return loanDate;
     }
 }

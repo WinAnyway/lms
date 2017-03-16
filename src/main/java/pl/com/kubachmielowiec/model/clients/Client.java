@@ -3,7 +3,10 @@ package pl.com.kubachmielowiec.model.clients;
 import pl.com.kubachmielowiec.model.commands.CreateClientCommand;
 import pl.com.kubachmielowiec.model.commands.UpdateClientCommand;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -38,6 +41,10 @@ public class Client {
         this.phoneNumber = cmd.getPhoneNumber();
         this.email = cmd.getEmail();
         this.loans = new HashSet<>();
+    }
+
+    public void loanAPublication(Long publicationId) {
+        loans.add(new Loan(publicationId));
     }
 
     public Long getId() {
