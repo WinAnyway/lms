@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.Year;
 
 @Entity
 public class Author {
@@ -20,9 +21,9 @@ public class Author {
     private String nationality;
 
 //    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate birthDate;
+    private Year birthDate;
 //    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate deathDate;
+    private Year deathDate;
 
     Author(){}
 
@@ -54,11 +55,11 @@ public class Author {
         return nationality;
     }
 
-    public LocalDate getBirthDate() {
+    public Year getBirthDate() {
         return birthDate;
     }
 
-    public LocalDate getDeathDate() {
+    public Year getDeathDate() {
         return deathDate;
     }
 

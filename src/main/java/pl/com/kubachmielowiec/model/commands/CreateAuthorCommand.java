@@ -1,13 +1,13 @@
 package pl.com.kubachmielowiec.model.commands;
 
-import java.time.LocalDate;
+import java.time.Year;
 
 public class CreateAuthorCommand {
     private String firstName;
     private String lastName;
     private String nationality;
-    private LocalDate birthDate;
-    private LocalDate deathDate;
+    private Year birthDate;
+    private Year deathDate;
 
     public String getFirstName() {
         return firstName;
@@ -33,19 +33,19 @@ public class CreateAuthorCommand {
         this.nationality = nationality;
     }
 
-    public LocalDate getBirthDate() {
+    public Year getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Year birthDate) {
         this.birthDate = birthDate;
     }
 
-    public LocalDate getDeathDate() {
+    public Year getDeathDate() {
         return deathDate;
     }
 
-    public void setDeathDate(LocalDate deathDate) {
+    public void setDeathDate(Year deathDate) {
         this.deathDate = deathDate;
     }
 }
