@@ -52,15 +52,15 @@ public class StandardClientsManagement implements ClientsManagement{
         dto.setAddress(client.getAddress());
         dto.setEmail(client.getEmail());
         dto.setPhoneNumber(client.getPhoneNumber());
-        dto.setLoans(changeLoansToDtos(client.getLoans()));
-        return null;
+//        dto.setLoans(changeLoansToDtos(client.getLoans()));
+        return dto;
     }
 
     private Set<LoanDto> changeLoansToDtos(Collection<Loan> loans) {
         Set<LoanDto> dtos = new HashSet<>();
         for(Loan loan : loans) {
             LoanDto dto = new LoanDto();
-            dto.setPublication(loan.getPublicationName());
+            dto.setPublication(loan.getPublication().getId());
             dto.setLoanDate(loan.getLoanDate());
             dtos.add(dto);
         }

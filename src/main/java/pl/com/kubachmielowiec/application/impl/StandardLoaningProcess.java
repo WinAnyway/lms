@@ -5,6 +5,7 @@ import pl.com.kubachmielowiec.application.*;
 import pl.com.kubachmielowiec.model.clients.Client;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
 import pl.com.kubachmielowiec.model.clients.Loan;
+import pl.com.kubachmielowiec.model.clients.LoansRepository;
 import pl.com.kubachmielowiec.model.publications.Publication;
 import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
@@ -14,14 +15,16 @@ public class StandardLoaningProcess implements LoaningProcess {
 
     private PublicationRepository publicationRepository;
     private ClientRepository clientRepository;
+    private LoansRepository loansRepository;
     private RaportGenerator raportGenerator;
     private RankingGenerator rankingGenerator;
     private ClientReminder clientReminder;
 
     public StandardLoaningProcess(PublicationRepository publicationRepository, ClientRepository clientRepository,
-                                  RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder) {
+                                  LoansRepository loansRepository, RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder) {
         this.publicationRepository = publicationRepository;
         this.clientRepository = clientRepository;
+        this.loansRepository = loansRepository;
         this.raportGenerator = raportGenerator;
         this.rankingGenerator = rankingGenerator;
         this.clientReminder = clientReminder;
@@ -33,7 +36,7 @@ public class StandardLoaningProcess implements LoaningProcess {
         Publication publication = publicationRepository.get(publicationId);
         publication.loan();
         Client client = clientRepository.get(clientId);
-        client.loanAPublication(publicationId);
+        loansRepository.put(new Loan(publication, client));
     }
 
     @Override
@@ -41,8 +44,8 @@ public class StandardLoaningProcess implements LoaningProcess {
     public void giveBack(Long publicationId, Long clientId) {
         Publication publication = publicationRepository.get(publicationId);
         publication.giveBack();
-        Client client = clientRepository.get(clientId);
-        client.giveBackAPublication(publicationId);
+        Loan loan = loansRepository.get(publicationId, clientId);
+        loan.deactivate();
     }
 
     @Override
@@ -64,7 +67,7 @@ public class StandardLoaningProcess implements LoaningProcess {
     @Transactional
     public Collection<Loan> getClientLoaningHistory(Long clientId) {
         Client client = clientRepository.get(clientId);
-        return client.getLoans();
+        return loansRepository.getLoansFor(clientId);
     }
 
     @Override

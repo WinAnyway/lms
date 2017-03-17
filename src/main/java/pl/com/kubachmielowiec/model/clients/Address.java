@@ -4,10 +4,6 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Address {
-/*
-    @Id
-    @GeneratedValue
-    Long id;*/
 
     String country;
     String city;
@@ -15,5 +11,24 @@ public class Address {
     String homeNumber;
     String postalCode;
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getHomeNumber() {
+        return homeNumber;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
 
 }

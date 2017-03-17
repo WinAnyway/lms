@@ -1,12 +1,9 @@
 package pl.com.kubachmielowiec.model.publications;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
 import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.time.Year;
 import java.util.Set;
 
@@ -23,12 +20,7 @@ public class Publication {
     String title;
     String description;
 
-    @OneToMany
-    @Cascade(CascadeType.ALL)
-    @JoinTable(
-            name = "PUBLICATION_AUTHORS",
-            joinColumns = @JoinColumn(name = "PUBLICATION_ID")
-    )
+    @OneToMany(cascade = CascadeType.ALL)
     Set<Author> authors;
 
     String isbn;
@@ -39,12 +31,7 @@ public class Publication {
     @Embedded
     Publisher publisher;
 
-    @OneToMany
-    @Cascade(CascadeType.ALL)
-    @JoinTable(
-            name = "PUBLICATION_GENRES",
-            joinColumns = @JoinColumn(name = "PUBLICATION_ID")
-    )
+    @OneToMany(cascade = CascadeType.ALL)
     Set<Genre> genres;
 
     boolean available;

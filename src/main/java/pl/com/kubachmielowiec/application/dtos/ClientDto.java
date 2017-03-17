@@ -2,8 +2,6 @@ package pl.com.kubachmielowiec.application.dtos;
 
 import pl.com.kubachmielowiec.model.clients.Address;
 
-import java.util.Set;
-
 public class ClientDto {
     private String firstName;
     private String lastName;
@@ -12,7 +10,7 @@ public class ClientDto {
     private Address address;
     private String email;
     private String phoneNumber;
-    private Set<LoanDto> loans;
+//    private Set<LoanDto> loans;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -70,11 +68,11 @@ public class ClientDto {
         return phoneNumber;
     }
 
-    public void setLoans(Set<LoanDto> loans) {
-        this.loans = loans;
-    }
-
-    public Set<LoanDto> getLoans() {
-        return loans;
-    }
+//    public void setLoans(Set<LoanDto> loans) {
+//        this.loans = loans;
+//    }
+//
+//    public Set<LoanDto> getLoans() {
+//        return loans;
+//    }
 }

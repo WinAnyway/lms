@@ -3,7 +3,9 @@ package pl.com.kubachmielowiec.model.publications;
 import pl.com.kubachmielowiec.model.commands.CreateAuthorCommand;
 import pl.com.kubachmielowiec.model.commands.UpdateAuthorCommand;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
@@ -63,4 +65,5 @@ public class Author {
     public Long getId() {
         return id;
     }
+
 }

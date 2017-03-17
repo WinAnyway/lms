@@ -1,6 +1,7 @@
 package pl.com.kubachmielowiec.ui;
 
 import org.springframework.web.bind.annotation.*;
+import pl.com.kubachmielowiec.application.LoaningProcess;
 import pl.com.kubachmielowiec.application.PublicationCatalog;
 import pl.com.kubachmielowiec.application.PublicationQuery;
 import pl.com.kubachmielowiec.application.PublicationSearchResults;
@@ -15,10 +16,12 @@ public class PublicationController {
 
     private PublicationsManagement publicationsManagement;
     private PublicationCatalog catalog;
+    private LoaningProcess loaningProcess;
 
-    public PublicationController(PublicationsManagement publicationsManagement, PublicationCatalog catalog) {
+    public PublicationController(PublicationsManagement publicationsManagement, PublicationCatalog catalog, LoaningProcess loaningProcess) {
         this.publicationsManagement = publicationsManagement;
         this.catalog = catalog;
+        this.loaningProcess = loaningProcess;
     }
 
     @PostMapping
@@ -45,5 +48,15 @@ public class PublicationController {
     @DeleteMapping("/{publicationId}")
     public void destroy(@PathVariable Long publicationId) {
         publicationsManagement.deletePublication(publicationId);
+    }
+
+    @PostMapping("/{publicationId}/loan/{clientId}")
+    public void loan(@PathVariable Long publicationId, @PathVariable Long clientId) {
+        loaningProcess.loan(publicationId, clientId);
+    }
+
+    @PutMapping("/{publicationId}/giveBack/{clientId}")
+    public void giveBack(@PathVariable Long publicationId, @PathVariable Long clientId) {
+        loaningProcess.giveBack(publicationId, clientId);
     }
 }

@@ -25,7 +25,9 @@ public class StandardLoaningProcessTest {
     @Sql("/fixtures/loaning.sql")
     public void shouldLoanAPublication () {
         //when
-        loaningProcess.loan(1L);
+        loaningProcess.loan(1L, 1L);
+
+
 
 
 

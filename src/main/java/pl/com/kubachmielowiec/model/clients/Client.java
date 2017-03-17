@@ -7,9 +7,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 public class Client {
@@ -28,8 +25,8 @@ public class Client {
     String phoneNumber;
     String email;
 
-    @Embedded
-    private List<Loan> loans;
+    /*@OneToMany
+    private List<Loan> loans;*/
 
     Client(){}
 
@@ -41,12 +38,12 @@ public class Client {
         this.idNumber = cmd.getIdNumber();
         this.phoneNumber = cmd.getPhoneNumber();
         this.email = cmd.getEmail();
-        this.loans = new ArrayList<>();
+//        this.loans = new ArrayList<>();
     }
 
-    public void loanAPublication(Long publicationId) {
-        loans.add(new Loan(publicationId));
-    }
+//    public void loanAPublication(Publication publication) {
+//        loans.add(new Loan(publication, this));
+//    }
 
     public Long getId() {
         return id;
@@ -80,9 +77,9 @@ public class Client {
         return email;
     }
 
-    public Collection<Loan> getLoans() {
-        return loans;
-    }
+//    public Collection<Loan> getLoans() {
+//        return loans;
+//    }
 
     public void update(UpdateClientCommand cmd) {
         this.firstName = cmd.getFirstName();
@@ -92,13 +89,13 @@ public class Client {
         this.idNumber = cmd.getIdNumber();
         this.phoneNumber = cmd.getPhoneNumber();
         this.email = cmd.getEmail();
-        this.loans = cmd.getLoans();
+//        this.loans = cmd.getLoans();
     }
 
-    public void giveBackAPublication(Long publicationId) {
-        for(Loan loan : loans) {
-            if (loan.getPublicationId().equals(publicationId))
-                loan.deactivate();
-        }
-    }
+//    public void giveBackAPublication(Long publicationId) {
+//        for(Loan loan : loans) {
+//            if (loan.getPublication().getId().equals(publicationId))
+//                loan.deactivate();
+//        }
+//    }
 }

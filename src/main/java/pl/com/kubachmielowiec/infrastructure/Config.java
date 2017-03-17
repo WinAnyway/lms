@@ -13,6 +13,7 @@ import pl.com.kubachmielowiec.application.management.impl.StandardClientsManagem
 import pl.com.kubachmielowiec.application.management.impl.StandardGenresManagement;
 import pl.com.kubachmielowiec.application.management.impl.StandardPublicationsManagement;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
+import pl.com.kubachmielowiec.model.clients.LoansRepository;
 import pl.com.kubachmielowiec.model.publications.AuthorRepository;
 import pl.com.kubachmielowiec.model.publications.GenresRepository;
 import pl.com.kubachmielowiec.model.publications.PublicationRepository;
@@ -21,10 +22,12 @@ import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 public class Config {
 
     @Bean
-    public LoaningProcess loaningProcess(PublicationRepository publicationRepository, ClientRepository clientRepository,
+    public LoaningProcess loaningProcess(PublicationRepository publicationRepository, ClientRepository clientRepository, LoansRepository loansRepository,
                                          RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder) {
-        return new StandardLoaningProcess(publicationRepository, clientRepository, raportGenerator, rankingGenerator, clientReminder);
+        return new StandardLoaningProcess(publicationRepository, clientRepository, loansRepository, raportGenerator, rankingGenerator, clientReminder);
     }
+
+
 
     @Bean
     public AuthorsManagement authorsManagement(AuthorRepository authorRepository){
@@ -49,6 +52,11 @@ public class Config {
     @Bean
     PublicationCatalog publicationCatalog() {
         return new JPAPublicationCatalog();
+    }
+
+    @Bean
+    LoansRepository loansRepository() {
+        return new JPALoansRepository();
     }
 
     @Bean

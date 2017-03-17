@@ -1,24 +1,36 @@
 package pl.com.kubachmielowiec.model.clients;
 
-import javax.persistence.Embeddable;
+import pl.com.kubachmielowiec.model.publications.Publication;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-@Embeddable
+@Entity
 public class Loan {
 
-    /*@Id
+    @Id
     @GeneratedValue
-    private Long id;*/
+    private Long id;
 
-    private Long publicationId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PUBLICATION_ID")
+    private Publication publication;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CLIENT_ID")
+    private Client client;
 
-//    @Temporal(TemporalType.TIMESTAMP)
+    //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate loanDate;
     private boolean active;
 
-    public Loan(Long publicationId) {
-        this.publicationId = publicationId;
+    Loan() {
+    }
+
+    public Loan(Publication publication, Client client) {
+        this.publication = publication;
+        loanDate = LocalDate.now();
+        this.client = client;
         this.loanDate = LocalDate.now();
         this.active = true;
     }
@@ -27,19 +39,27 @@ public class Loan {
         return ChronoUnit.DAYS.between(loanDate, LocalDate.now()) > 31;
     }
 
-    public boolean isActive(){
+    public void deactivate() {
+        this.active = false;
+    }
+
+    public boolean isActive() {
         return active;
     }
 
-    public Long getPublicationId() {
-        return publicationId;
+    public Long getId() {
+        return id;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Publication getPublication() {
+        return publication;
     }
 
     public LocalDate getLoanDate() {
         return loanDate;
-    }
-
-    public void deactivate() {
-        this.active = false;
     }
 }
