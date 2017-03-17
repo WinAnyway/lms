@@ -50,13 +50,4 @@ public class PublicationController {
         publicationsManagement.deletePublication(publicationId);
     }
 
-    @PostMapping("/{publicationId}/loan/{clientId}")
-    public void loan(@PathVariable Long publicationId, @PathVariable Long clientId) {
-        loaningProcess.loan(publicationId, clientId);
-    }
-
-    @PutMapping("/{publicationId}/giveBack/{clientId}")
-    public void giveBack(@PathVariable Long publicationId, @PathVariable Long clientId) {
-        loaningProcess.giveBack(publicationId, clientId);
-    }
 }

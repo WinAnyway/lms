@@ -3,10 +3,7 @@ package pl.com.kubachmielowiec.model.publications;
 import pl.com.kubachmielowiec.model.commands.CreateAuthorCommand;
 import pl.com.kubachmielowiec.model.commands.UpdateAuthorCommand;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.time.Year;
 
 @Entity
@@ -20,9 +17,7 @@ public class Author {
     private String lastName;
     private String nationality;
 
-//    @Temporal(TemporalType.TIMESTAMP)
     private Year birthDate;
-//    @Temporal(TemporalType.TIMESTAMP)
     private Year deathDate;
 
     Author(){}

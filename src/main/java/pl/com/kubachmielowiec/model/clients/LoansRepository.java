@@ -9,4 +9,6 @@ public interface LoansRepository {
     List<Loan> getLoansFor(Long clientId);
 
     Loan get(Long publicationId, Long clientId);
+
+    List<Loan> getActiveLoans();
 }

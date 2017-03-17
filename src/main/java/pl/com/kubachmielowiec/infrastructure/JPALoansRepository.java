@@ -20,16 +20,22 @@ public class JPALoansRepository implements LoansRepository {
 
     @Override
     public List<Loan> getLoansFor(Long clientId) {
-        Query query = entityManager.createQuery("FROM Loan l WHERE l.clientId = :id");
+        Query query = entityManager.createQuery("FROM Loan l WHERE l.client.id = :id");
         query.setParameter("id", clientId);
         return query.getResultList();
     }
 
     @Override
     public Loan get(Long publicationId, Long clientId) {
-        Query query = entityManager.createQuery("FROM Loan l WHERE l.publicationId = :pId AND l.clientId = :cId");
+        Query query = entityManager.createQuery("FROM Loan l WHERE l.publication.id = :pId AND l.client.id = :cId");
         query.setParameter("pId", publicationId);
         query.setParameter("cId", clientId);
         return (Loan) query.getSingleResult();
+    }
+
+    @Override
+    public List<Loan> getActiveLoans() {
+        Query query = entityManager.createQuery("FROM Loan l WHERE l.active = TRUE");
+        return query.getResultList();
     }
 }

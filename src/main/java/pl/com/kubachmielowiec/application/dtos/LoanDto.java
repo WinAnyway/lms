@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 public class LoanDto {
     private LocalDate loanDate;
-    private Long publication;
+    private String publication;
+    private Long id;
+    private Long clientId;
 
     public void setLoanDate(LocalDate loanDate) {
         this.loanDate = loanDate;
@@ -14,11 +16,27 @@ public class LoanDto {
         return loanDate;
     }
 
-    public void setPublication(Long publication) {
+    public void setPublication(String publication) {
         this.publication = publication;
     }
 
-    public Long getPublication() {
+    public String getPublication() {
         return publication;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public Long getClientId() {
+        return clientId;
     }
 }
