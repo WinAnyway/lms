@@ -50,4 +50,8 @@ public class PublicationController {
         publicationsManagement.deletePublication(publicationId);
     }
 
+    @PostMapping("/{publicationId}/copies/{numberOfCopies}")
+    public void generateCodes(@PathVariable Long publicationId, @PathVariable Long numberOfCopies) {
+        publicationsManagement.generateCodesFor(publicationId, numberOfCopies);
+    }
 }

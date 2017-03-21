@@ -9,7 +9,7 @@ public class Publisher {
 
     Publisher(){}
 
-    Publisher(String publisherName) {
+    public Publisher(String publisherName) {
         this.name = publisherName;
     }
 

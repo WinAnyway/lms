@@ -11,4 +11,5 @@ public interface PublicationsManagement {
 
     void deletePublication(Long publicationId);
 
+    void generateCodesFor(Long publicationId, Long numberOfCopies);
 }

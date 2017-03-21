@@ -34,4 +34,9 @@ public class StandardPublicationsManagement implements PublicationsManagement{
         publicationRepository.remove(publicationId);
     }
 
+    @Override
+    public void generateCodesFor(Long publicationId, Long numberOfCopies) {
+
+    }
+
 }
