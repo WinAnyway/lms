@@ -16,4 +16,8 @@ public class LoanRaport {
     public void add(LoanDto loanDto) {
         expiredLoans.add(loanDto);
     }
+
+    public List<LoanDto> getExpiredLoans() {
+        return expiredLoans;
+    }
 }

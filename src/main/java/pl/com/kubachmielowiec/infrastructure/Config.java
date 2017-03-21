@@ -80,13 +80,13 @@ public class Config {
     }
 
     @Bean
-    public RaportGenerator raportGenerator() {
-        return new RaportGenerator();
+    public RaportGenerator raportGenerator(LoansRepository loansRepository) {
+        return new RaportGenerator(loansRepository);
     }
 
     @Bean
-    public RankingGenerator rankingGenerator() {
-        return new RankingGenerator();
+    public RankingGenerator rankingGenerator(LoansRepository loansRepository) {
+        return new RankingGenerator(loansRepository);
     }
 
     @Bean

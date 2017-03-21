@@ -66,7 +66,6 @@ public class StandardLoaningProcess implements LoaningProcess {
     @Override
     @Transactional
     public Collection<Loan> getClientLoaningHistory(Long clientId) {
-        Client client = clientRepository.get(clientId);
         return loansRepository.getLoansFor(clientId);
     }
 

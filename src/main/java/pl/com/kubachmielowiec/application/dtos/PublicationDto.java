@@ -4,6 +4,7 @@ import java.time.Year;
 import java.util.Set;
 
 public class PublicationDto {
+    private Long id;
     private String title;
     private String description;
     private Set<AuthorDto> authors;
@@ -12,6 +13,14 @@ public class PublicationDto {
     private String publisher;
     private Set<String> genres;
     private boolean available;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setTitle(String title) {
         this.title = title;

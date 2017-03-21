@@ -1,8 +1,20 @@
 package pl.com.kubachmielowiec.application;
 
+import org.springframework.transaction.annotation.Transactional;
+import pl.com.kubachmielowiec.model.clients.LoansRepository;
+
+@Transactional
 public class RankingGenerator {
 
+    private LoansRepository loansRepository;
+
+    private PublicationCatalog publicationCatalog;
+
+    public RankingGenerator(LoansRepository loansRepository) {
+        this.loansRepository = loansRepository;
+    }
+
     public Ranking generateRanking() {
-        return null;
+        return new Ranking(loansRepository.countLoans());
     }
 }

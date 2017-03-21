@@ -1,11 +1,13 @@
 package pl.com.kubachmielowiec.application;
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.dtos.LoanDto;
 import pl.com.kubachmielowiec.model.clients.Loan;
 import pl.com.kubachmielowiec.model.clients.LoansRepository;
 
 import java.util.List;
 
+@Transactional
 public class RaportGenerator {
 
     private LoansRepository loansRepository;

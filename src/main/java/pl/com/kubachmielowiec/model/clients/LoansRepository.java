@@ -1,5 +1,7 @@
 package pl.com.kubachmielowiec.model.clients;
 
+import pl.com.kubachmielowiec.model.publications.Publication;
+
 import java.util.List;
 
 public interface LoansRepository {
@@ -11,4 +13,6 @@ public interface LoansRepository {
     Loan get(Long publicationId, Long clientId);
 
     List<Loan> getActiveLoans();
+
+    List<Publication> countLoans();
 }

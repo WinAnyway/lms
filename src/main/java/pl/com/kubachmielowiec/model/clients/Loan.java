@@ -13,7 +13,7 @@ public class Loan {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PUBLICATION_ID")
     private Publication publication;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -25,6 +25,13 @@ public class Loan {
     private boolean active;
 
     Loan() {
+    }
+
+    public Loan(Publication publication, Client client, LocalDate loanDate, boolean active) {
+        this.publication = publication;
+        this.client = client;
+        this.loanDate = loanDate;
+        this.active = active;
     }
 
     public Loan(Publication publication, Client client) {

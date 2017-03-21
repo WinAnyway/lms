@@ -2,17 +2,11 @@ package pl.com.kubachmielowiec.application.management.impl;
 
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.dtos.ClientDto;
-import pl.com.kubachmielowiec.application.dtos.LoanDto;
 import pl.com.kubachmielowiec.application.management.ClientsManagement;
 import pl.com.kubachmielowiec.model.clients.Client;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
-import pl.com.kubachmielowiec.model.clients.Loan;
 import pl.com.kubachmielowiec.model.commands.CreateClientCommand;
 import pl.com.kubachmielowiec.model.commands.UpdateClientCommand;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Transactional
 public class StandardClientsManagement implements ClientsManagement{
@@ -52,18 +46,6 @@ public class StandardClientsManagement implements ClientsManagement{
         dto.setAddress(client.getAddress());
         dto.setEmail(client.getEmail());
         dto.setPhoneNumber(client.getPhoneNumber());
-//        dto.setLoans(changeLoansToDtos(client.getLoans()));
         return dto;
-    }
-
-    private Set<LoanDto> changeLoansToDtos(Collection<Loan> loans) {
-        Set<LoanDto> dtos = new HashSet<>();
-        for(Loan loan : loans) {
-            LoanDto dto = new LoanDto();
-            dto.setPublication(loan.getPublication().getId());
-            dto.setLoanDate(loan.getLoanDate());
-            dtos.add(dto);
-        }
-        return dtos;
     }
 }
