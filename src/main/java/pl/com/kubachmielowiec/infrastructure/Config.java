@@ -90,7 +90,7 @@ public class Config {
     }
 
     @Bean
-    public ClientReminder clientReminder(LoansRepository loansRepository, ClientRepository clientRepository) {
-        return new ClientReminder(loansRepository, clientRepository);
+    public ClientReminder clientReminder(ClientRepository clientRepository) {
+        return new ClientReminder(clientRepository);
     }
 }
