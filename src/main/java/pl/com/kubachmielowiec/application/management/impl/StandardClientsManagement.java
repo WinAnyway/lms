@@ -1,7 +1,6 @@
 package pl.com.kubachmielowiec.application.management.impl;
 
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.kubachmielowiec.application.dtos.ClientDto;
 import pl.com.kubachmielowiec.application.management.ClientsManagement;
 import pl.com.kubachmielowiec.model.clients.Client;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
@@ -36,16 +35,7 @@ public class StandardClientsManagement implements ClientsManagement{
     }
 
     @Override
-    public ClientDto getClient(Long clientId) {
-        Client client = clientRepository.get(clientId);
-        ClientDto dto = new ClientDto();
-        dto.setFirstName(client.getFirstName());
-        dto.setLastName(client.getLastName());
-        dto.setPesel(client.getPesel());
-        dto.setIdNumber(client.getIdNumber());
-        dto.setAddress(client.getAddress());
-        dto.setEmail(client.getEmail());
-        dto.setPhoneNumber(client.getPhoneNumber());
-        return dto;
+    public Client getClient(Long clientId) {
+        return clientRepository.get(clientId);
     }
 }

@@ -1,6 +1,6 @@
 package pl.com.kubachmielowiec.application.management;
 
-import pl.com.kubachmielowiec.application.dtos.ClientDto;
+import pl.com.kubachmielowiec.model.clients.Client;
 import pl.com.kubachmielowiec.model.commands.CreateClientCommand;
 import pl.com.kubachmielowiec.model.commands.UpdateClientCommand;
 
@@ -12,6 +12,6 @@ public interface ClientsManagement {
 
     void deleteClient(Long clientId);
 
-    ClientDto getClient(Long clientId);
+    Client getClient(Long clientId);
 
 }

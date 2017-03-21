@@ -1,8 +1,8 @@
 package pl.com.kubachmielowiec.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.kubachmielowiec.application.dtos.ClientDto;
 import pl.com.kubachmielowiec.application.management.ClientsManagement;
+import pl.com.kubachmielowiec.model.clients.Client;
 import pl.com.kubachmielowiec.model.commands.CreateClientCommand;
 import pl.com.kubachmielowiec.model.commands.UpdateClientCommand;
 
@@ -22,7 +22,7 @@ public class ClientController {
     }
 
     @GetMapping("/{clientId}")
-    public ClientDto show(@PathVariable Long clientId) {
+    public Client show(@PathVariable Long clientId) {
         return clientsManagement.getClient(clientId);
     }
 
