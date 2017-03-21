@@ -1,6 +1,6 @@
 package pl.com.kubachmielowiec.application.management;
 
-import pl.com.kubachmielowiec.application.dtos.GenreDto;
+import pl.com.kubachmielowiec.model.publications.Genre;
 
 public interface GenresManagement {
 
@@ -10,5 +10,5 @@ public interface GenresManagement {
 
     void deleteGenre(Long genreId);
 
-    GenreDto getGenre(Long genreId);
+    Genre getGenre(Long genreId);
 }

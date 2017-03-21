@@ -1,7 +1,6 @@
 package pl.com.kubachmielowiec.application.management.impl;
 
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.kubachmielowiec.application.dtos.GenreDto;
 import pl.com.kubachmielowiec.application.management.GenresManagement;
 import pl.com.kubachmielowiec.model.publications.Genre;
 import pl.com.kubachmielowiec.model.publications.GenresRepository;
@@ -34,10 +33,7 @@ public class StandardGenresManagement implements GenresManagement{
     }
 
     @Override
-    public GenreDto getGenre(Long genreId) {
-        Genre genre = genresRepository.get(genreId);
-        GenreDto dto = new GenreDto();
-        dto.setName(genre.getName());
-        return dto;
+    public Genre getGenre(Long genreId) {
+        return genresRepository.get(genreId);
     }
 }

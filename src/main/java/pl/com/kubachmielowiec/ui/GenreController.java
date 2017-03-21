@@ -1,8 +1,8 @@
 package pl.com.kubachmielowiec.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.kubachmielowiec.application.dtos.GenreDto;
 import pl.com.kubachmielowiec.application.management.GenresManagement;
+import pl.com.kubachmielowiec.model.publications.Genre;
 
 @RestController
 @RequestMapping("/genres")
@@ -20,7 +20,7 @@ public class GenreController {
     }
 
     @GetMapping("/{genreId}")
-    public GenreDto show(@PathVariable Long genreId) {
+    public Genre show(@PathVariable Long genreId) {
         return genresManagement.getGenre(genreId);
     }
 
