@@ -9,7 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.List;
 
 public class JPALoansRepository implements LoansRepository {
@@ -38,8 +40,9 @@ public class JPALoansRepository implements LoansRepository {
     }
 
     @Override
-    public List<Loan> getActiveLoans() {
-        Query query = entityManager.createQuery("FROM Loan l WHERE l.active = TRUE");
+    public List<Loan> getActiveExpiredLoans() {
+        Query query = entityManager.createQuery("FROM Loan l WHERE l.active = TRUE AND l.loanDate < :monthAgo");
+        query.setParameter("monthAgo", LocalDate.now().minusMonths(1L));
         return query.getResultList();
     }
 
@@ -48,10 +51,10 @@ public class JPALoansRepository implements LoansRepository {
         /*CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Publication> criteriaQuery = cb.createQuery(Publication.class);
         Root<Loan> loan = criteriaQuery.from(Loan.class);
-        loan.join("publication");
-        criteriaQuery.multiselect(loan.get("publication"));
-        criteriaQuery.groupBy(loan.get("publication").get("id"));
-        criteriaQuery.orderBy(cb.desc(cb.count(loan.get("publication").get("id"))));
+        criteriaQuery.select(loan.get("publication"));
+        loan.join("publication", JoinType.LEFT);
+        criteriaQuery.groupBy(loan.get("publication"));
+        criteriaQuery.orderBy(cb.desc(cb.count(loan.get("publication"))));
         Query query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();*/
         Query query = entityManager.createQuery("SELECT p FROM Loan l left join l.publication p group by p.id order by count(p) desc");

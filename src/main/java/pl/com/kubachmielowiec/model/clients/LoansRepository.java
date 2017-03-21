@@ -12,7 +12,7 @@ public interface LoansRepository {
 
     Loan get(Long publicationId, Long clientId);
 
-    List<Loan> getActiveLoans();
+    List<Loan> getActiveExpiredLoans();
 
     List<Publication> countLoans();
 }

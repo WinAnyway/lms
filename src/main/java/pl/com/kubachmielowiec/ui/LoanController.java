@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.model.clients;
+package pl.com.kubachmielowiec.ui;
 
 import org.springframework.web.bind.annotation.*;
 import pl.com.kubachmielowiec.application.LoanRaport;

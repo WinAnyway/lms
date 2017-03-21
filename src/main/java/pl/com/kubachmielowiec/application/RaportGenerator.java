@@ -18,13 +18,14 @@ public class RaportGenerator {
 
     public LoanRaport generateExpiredRaport() {
         LoanRaport loanRaport = new LoanRaport();
-        List<Loan> activeLoans = loansRepository.getActiveLoans();
-        for(Loan loan : activeLoans) {
-            if(loan.hasExpired()) {
-                loanRaport.add(changeLoanToDto(loan));
-            }
-        }
+        List<Loan> activeExpiredLoans = loansRepository.getActiveExpiredLoans();
+        addPositionsToRaport(loanRaport, activeExpiredLoans);
         return loanRaport;
+    }
+
+    private void addPositionsToRaport(LoanRaport loanRaport, List<Loan> activeExpiredLoans) {
+        for (Loan loan : activeExpiredLoans)
+            loanRaport.add(changeLoanToDto(loan));
     }
 
     private LoanDto changeLoanToDto(Loan loan) {
