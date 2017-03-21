@@ -7,10 +7,7 @@ import pl.com.kubachmielowiec.model.publications.Publication;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -49,12 +46,16 @@ public class JPALoansRepository implements LoansRepository {
     @Override
     public List<Publication> countLoans() {
         /*CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Publication> criteriaQuery = cb.createQuery(Publication.class);
+        CriteriaQuery<Loan> criteriaQuery = cb.createQuery(Loan.class);
         Root<Loan> loan = criteriaQuery.from(Loan.class);
-        criteriaQuery.select(loan.get("publication"));
-        loan.join("publication", JoinType.LEFT);
-        criteriaQuery.groupBy(loan.get("publication"));
-        criteriaQuery.orderBy(cb.desc(cb.count(loan.get("publication"))));
+
+        Subquery<Publication> subquery = criteriaQuery.subquery(Publication.class);
+        Root<Loan> subLoan = subquery.correlate(loan);
+        Join<Loan, Publication> publication = subLoan.join("publication");
+        subquery.select(publication);
+        subquery.groupBy(publication);
+        subquery.orderBy(cb.count(publication.get("id")));
+        criteriaQuery.where(cb.exists(subquery));
         Query query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();*/
         Query query = entityManager.createQuery("SELECT p FROM Loan l left join l.publication p group by p.id order by count(p) desc");

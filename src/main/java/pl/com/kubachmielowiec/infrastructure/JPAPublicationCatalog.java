@@ -34,35 +34,44 @@ public class JPAPublicationCatalog implements PublicationCatalog {
     private List<PublicationDto> queryPublications(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder) {
         CriteriaQuery<Publication> criteriaQuery = criteriaBuilder.createQuery(Publication.class);
         Root<Publication> root = criteriaQuery.from(Publication.class);
-        root.fetch("authors", JoinType.LEFT);
-        root.fetch("genres", JoinType.LEFT);
-        Set<Predicate> predicates = createPredicates(publicationQuery, criteriaBuilder, root);
+        Set<Predicate> predicates = createPredicates(publicationQuery, criteriaBuilder, root, criteriaQuery);
         criteriaQuery.where(predicates.toArray(new Predicate[]{}));
         Query query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
     }
 
-    private Set<Predicate> createPredicates(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root) {
+    private Set<Predicate> createPredicates(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, CriteriaQuery criteriaQuery) {
         Set<Predicate> predicates = new HashSet<>();
         addPhrasePredicate(publicationQuery, criteriaBuilder, root, predicates);
         addIsbnPredicate(publicationQuery, criteriaBuilder, root, predicates);
         addPublisherPredicate(publicationQuery, criteriaBuilder, root, predicates);
         addPublicationYearPredicate(publicationQuery, criteriaBuilder, root, predicates);
-        addGenrePredicate(publicationQuery, criteriaBuilder, root, predicates);
-        addAuthorPredicate(publicationQuery, criteriaBuilder, root, predicates);
+        addGenrePredicate(publicationQuery, criteriaBuilder, root, predicates, criteriaQuery);
+        addAuthorPredicate(publicationQuery, criteriaBuilder, root, predicates, criteriaQuery);
         return predicates;
     }
 
-    private void addAuthorPredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
+    private void addAuthorPredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates, CriteriaQuery criteriaQuery) {
         if (publicationQuery.getAuthor() != null) {
-            //TODO
-            predicates.add(criteriaBuilder.isMember(publicationQuery.getAuthor(), root.get("authors.firstName")));
+            Subquery<Author> authorSubquery = criteriaQuery.subquery(Author.class);
+            Root<Publication> subRoot = authorSubquery.correlate(root);
+            Join<Publication, Author> author = subRoot.join("authors");
+            authorSubquery.select(author);
+            authorSubquery.where(criteriaBuilder.or(
+                    criteriaBuilder.equal(author.get("firstName"), publicationQuery.getAuthor()),
+                    criteriaBuilder.equal(author.get("lastName"), publicationQuery.getAuthor())));
+            predicates.add(criteriaBuilder.exists(authorSubquery));
         }
     }
 
-    private void addGenrePredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates) {
+    private void addGenrePredicate(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, Set<Predicate> predicates, CriteriaQuery criteriaQuery) {
         if (publicationQuery.getGenre() != null) {
-            predicates.add(criteriaBuilder.isMember(publicationQuery.getGenre(), root.get("genres")));
+            Subquery<Genre> genreSubquery = criteriaQuery.subquery(Genre.class);
+            Root<Publication> subRoot = genreSubquery.correlate(root);
+            Join<Publication, Genre> genreJoin = subRoot.join("genres");
+            genreSubquery.select(genreJoin);
+            genreSubquery.where(criteriaBuilder.equal(genreJoin.get("name"), publicationQuery.getGenre()));
+            predicates.add(criteriaBuilder.exists(genreSubquery));
         }
     }
 
