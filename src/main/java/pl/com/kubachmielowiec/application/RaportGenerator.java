@@ -32,7 +32,7 @@ public class RaportGenerator {
         LoanDto dto = new LoanDto();
         dto.setId(loan.getId());
         dto.setLoanDate(loan.getLoanDate());
-        dto.setPublication(loan.getPublication().getTitle());
+        dto.setCopy(loan.getCopy().getBarcode().getCode());
         dto.setClientId(loan.getClient().getId());
         return dto;
     }

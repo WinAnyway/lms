@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.com.kubachmielowiec.application.LoanRaport;
 import pl.com.kubachmielowiec.application.LoaningProcess;
 import pl.com.kubachmielowiec.application.Ranking;
+import pl.com.kubachmielowiec.model.publications.Barcode;
 
 @RestController
 @RequestMapping("/loans")
@@ -15,14 +16,14 @@ public class LoanController {
         this.loaningProcess = loaningProcess;
     }
 
-    @PostMapping("/loan/{publicationId}/{clientId}")
-    public void loan(@PathVariable Long publicationId, @PathVariable Long clientId) {
-        loaningProcess.loan(publicationId, clientId);
+    @PostMapping("/loan/{barcode}/{clientId}")
+    public void loan(@PathVariable String barcode, @PathVariable Long clientId) {
+        loaningProcess.loan(new Barcode(barcode), clientId);
     }
 
-    @PutMapping("/giveback/{publicationId}/{clientId}")
-    public void giveBack(@PathVariable Long publicationId, @PathVariable Long clientId) {
-        loaningProcess.giveBack(publicationId, clientId);
+    @PutMapping("/giveback/{barcode}/{clientId}")
+    public void giveBack(@PathVariable String barcode, @PathVariable Long clientId) {
+        loaningProcess.giveBack(new Barcode(barcode), clientId);
     }
 
     @PostMapping("/raport")

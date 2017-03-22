@@ -94,7 +94,7 @@ public class Client {
 
 //    public void giveBackAPublication(Long publicationId) {
 //        for(Loan loan : loans) {
-//            if (loan.getPublication().getId().equals(publicationId))
+//            if (loan.getCopy().getId().equals(publicationId))
 //                loan.deactivate();
 //        }
 //    }

@@ -8,6 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.impl.StandardLoaningProcess;
+import pl.com.kubachmielowiec.model.publications.Barcode;
 import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,7 +26,7 @@ public class StandardLoaningProcessTest {
     @Sql("/fixtures/loaning.sql")
     public void shouldLoanAPublication () {
         //when
-        loaningProcess.loan(1L, 1L);
+        loaningProcess.loan(new Barcode(), 1L);
 
 
 

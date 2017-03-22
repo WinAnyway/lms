@@ -2,6 +2,7 @@ package pl.com.kubachmielowiec.application.management;
 
 import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
+import pl.com.kubachmielowiec.model.publications.Barcode;
 
 public interface PublicationsManagement {
 
@@ -11,5 +12,8 @@ public interface PublicationsManagement {
 
     void deletePublication(Long publicationId);
 
-    void generateCodesFor(Long publicationId, Long numberOfCopies);
+    void addCopiesOf(Long publicationId, Integer numberOfCopies);
+
+    void deleteCopy(Barcode barcode);
+
 }

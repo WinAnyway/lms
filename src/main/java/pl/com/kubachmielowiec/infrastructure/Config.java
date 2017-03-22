@@ -15,6 +15,7 @@ import pl.com.kubachmielowiec.application.management.impl.StandardPublicationsMa
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
 import pl.com.kubachmielowiec.model.clients.LoansRepository;
 import pl.com.kubachmielowiec.model.publications.AuthorRepository;
+import pl.com.kubachmielowiec.model.publications.CopyRepository;
 import pl.com.kubachmielowiec.model.publications.GenresRepository;
 import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
@@ -22,17 +23,16 @@ import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 public class Config {
 
     @Bean
-    public LoaningProcess loaningProcess(PublicationRepository publicationRepository, ClientRepository clientRepository, LoansRepository loansRepository,
+    public LoaningProcess loaningProcess(CopyRepository copyRepository, ClientRepository clientRepository, LoansRepository loansRepository,
                                          RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder) {
-        return new StandardLoaningProcess(publicationRepository, clientRepository, loansRepository, raportGenerator, rankingGenerator, clientReminder);
+        return new StandardLoaningProcess(copyRepository, clientRepository, loansRepository, raportGenerator, rankingGenerator, clientReminder);
     }
-
-
 
     @Bean
     public AuthorsManagement authorsManagement(AuthorRepository authorRepository){
         return new StandardAuthorsManagement(authorRepository);
     }
+
 
     @Bean
     public ClientsManagement clientsManagement(ClientRepository clientRepository) {
@@ -45,13 +45,18 @@ public class Config {
     }
 
     @Bean
-    PublicationsManagement publicationsManagement(PublicationRepository publicationRepository) {
-        return new StandardPublicationsManagement(publicationRepository);
+    PublicationsManagement publicationsManagement(PublicationRepository publicationRepository, CopyRepository copyRepository) {
+        return new StandardPublicationsManagement(publicationRepository, copyRepository);
     }
 
     @Bean
     PublicationCatalog publicationCatalog() {
         return new JPAPublicationCatalog();
+    }
+
+    @Bean
+    public CopyRepository copyRepository() {
+        return new JPACopyRepository();
     }
 
     @Bean

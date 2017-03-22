@@ -9,6 +9,7 @@ import pl.com.kubachmielowiec.application.dtos.PublicationDto;
 import pl.com.kubachmielowiec.application.management.PublicationsManagement;
 import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
+import pl.com.kubachmielowiec.model.publications.Barcode;
 
 @RestController
 @RequestMapping("/publications")
@@ -50,8 +51,13 @@ public class PublicationController {
         publicationsManagement.deletePublication(publicationId);
     }
 
-    @PostMapping("/{publicationId}/copies/{numberOfCopies}")
-    public void generateCodes(@PathVariable Long publicationId, @PathVariable Long numberOfCopies) {
-        publicationsManagement.generateCodesFor(publicationId, numberOfCopies);
+    @PostMapping("/copies/{publicationId}/{numberOfCopies}")
+    public void addCopies(@PathVariable Long publicationId, @PathVariable Integer numberOfCopies) {
+        publicationsManagement.addCopiesOf(publicationId, numberOfCopies);
+    }
+
+    @DeleteMapping("/copies/{barcode}")
+    public void deleteCopy(@PathVariable String barcode) {
+        publicationsManagement.deleteCopy(new Barcode(barcode));
     }
 }

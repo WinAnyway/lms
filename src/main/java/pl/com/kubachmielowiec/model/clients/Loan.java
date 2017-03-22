@@ -1,6 +1,6 @@
 package pl.com.kubachmielowiec.model.clients;
 
-import pl.com.kubachmielowiec.model.publications.Publication;
+import pl.com.kubachmielowiec.model.publications.Copy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,13 +9,15 @@ import java.time.temporal.ChronoUnit;
 @Entity
 public class Loan {
 
+    private static final Long MONTH = 31L;
+
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PUBLICATION_ID")
-    private Publication publication;
+    private Copy copy;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CLIENT_ID")
     private Client client;
@@ -27,15 +29,15 @@ public class Loan {
     Loan() {
     }
 
-    public Loan(Publication publication, Client client, LocalDate loanDate, boolean active) {
-        this.publication = publication;
+    public Loan(Copy copy, Client client, LocalDate loanDate, boolean active) {
+        this.copy = copy;
         this.client = client;
         this.loanDate = loanDate;
         this.active = active;
     }
 
-    public Loan(Publication publication, Client client) {
-        this.publication = publication;
+    public Loan(Copy copy, Client client) {
+        this.copy = copy;
         loanDate = LocalDate.now();
         this.client = client;
         this.loanDate = LocalDate.now();
@@ -43,7 +45,7 @@ public class Loan {
     }
 
     public boolean hasExpired() {
-        return ChronoUnit.DAYS.between(loanDate, LocalDate.now()) > 31;
+        return ChronoUnit.DAYS.between(loanDate, LocalDate.now()) > MONTH;
     }
 
     public void deactivate() {
@@ -62,11 +64,32 @@ public class Loan {
         return client;
     }
 
-    public Publication getPublication() {
-        return publication;
+    public Copy getCopy() {
+        return copy;
     }
 
     public LocalDate getLoanDate() {
         return loanDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Loan loan = (Loan) o;
+
+        if (!id.equals(loan.id)) return false;
+        if (!copy.equals(loan.copy)) return false;
+        return client.equals(loan.client);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + copy.hashCode();
+        result = 31 * result + client.hashCode();
+        return result;
     }
 }

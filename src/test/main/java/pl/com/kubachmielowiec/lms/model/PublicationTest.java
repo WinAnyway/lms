@@ -1,3 +1,4 @@
+/*
 package pl.com.kubachmielowiec.lms.model;
 
 import org.junit.Test;
@@ -50,3 +51,4 @@ public class PublicationTest {
     }
 
 }
+*/

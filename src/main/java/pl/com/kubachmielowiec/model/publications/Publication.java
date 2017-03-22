@@ -14,9 +14,6 @@ public class Publication {
     @GeneratedValue
     Long id;
 
-    @Embedded
-    private PublicationCode publicationCode;
-
     String title;
     String description;
 
@@ -25,7 +22,6 @@ public class Publication {
 
     String isbn;
 
-    //    @Temporal(TemporalType.TIMESTAMP)
     Year publicationYear;
 
     @Embedded
@@ -39,6 +35,14 @@ public class Publication {
     Publication() {
     }
 
+    public void activate() {
+        this.available = true;
+    }
+
+    public void deactivate() {
+        this.available = false;
+    }
+
     public Publication(CreatePublicationCommand cmd) {
         this.title = cmd.getTitle();
         this.description = cmd.getDescription();
@@ -50,17 +54,6 @@ public class Publication {
         this.available = true;
     }
 
-    public void loan() {
-        if (!available)
-            throw new IllegalStateException(String.format("Publication %d is not available for loaning", id));
-        this.available = false;
-    }
-
-    public void giveBack() {
-        if (available)
-            throw new IllegalStateException(String.format("Publication %d is already returned", id));
-        this.available = true;
-    }
 
     public void change(UpdatePublicationCommand cmd) {
         this.title = cmd.getTitle();
@@ -71,12 +64,7 @@ public class Publication {
         this.publisher = cmd.getPublisher();
         this.genres = cmd.getGenres();
     }
-
-    public PublicationCode getPublicationCode() {
-        return publicationCode;
-    }
-
-    public String getTitle() {
+        public String getTitle() {
         return title;
     }
 
@@ -110,5 +98,26 @@ public class Publication {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Publication that = (Publication) o;
+
+        if (!id.equals(that.id)) return false;
+        if (!title.equals(that.title)) return false;
+        return isbn.equals(that.isbn);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
+        result = 31 * result + isbn.hashCode();
+        return result;
     }
 }

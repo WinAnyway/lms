@@ -1,14 +1,15 @@
 package pl.com.kubachmielowiec.application;
 
 import pl.com.kubachmielowiec.model.clients.Loan;
+import pl.com.kubachmielowiec.model.publications.Barcode;
 
 import java.util.Collection;
 
 public interface LoaningProcess {
 
-    void loan(Long publicationId, Long clientId);
+    void loan(Barcode barcode, Long clientId);
 
-    void giveBack(Long publicationId, Long clientId);
+    void giveBack(Barcode barcode, Long clientId);
 
     LoanRaport generateExpiredReturnDateRaport();
 

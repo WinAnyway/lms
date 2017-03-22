@@ -69,7 +69,7 @@ public class PublicationManagementTest {
         //given
         Long id = createPublication();
         //when
-        publicationsManagement.generateCodesFor(id, 3L);
+        publicationsManagement.addCopiesOf(id, 3);
         //then
 
     }

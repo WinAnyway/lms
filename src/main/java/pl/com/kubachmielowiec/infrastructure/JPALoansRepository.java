@@ -2,6 +2,7 @@ package pl.com.kubachmielowiec.infrastructure;
 
 import pl.com.kubachmielowiec.model.clients.Loan;
 import pl.com.kubachmielowiec.model.clients.LoansRepository;
+import pl.com.kubachmielowiec.model.publications.Barcode;
 import pl.com.kubachmielowiec.model.publications.Publication;
 
 import javax.persistence.EntityManager;
@@ -29,10 +30,10 @@ public class JPALoansRepository implements LoansRepository {
     }
 
     @Override
-    public Loan get(Long publicationId, Long clientId) {
-        Query query = entityManager.createQuery("FROM Loan l WHERE l.publication.id = :pId AND l.client.id = :cId");
-        query.setParameter("pId", publicationId);
-        query.setParameter("cId", clientId);
+    public Loan getActiveLoan(Barcode barcode, Long clientId) {
+        Query query = entityManager.createQuery("FROM Loan l WHERE l.copy.barcode = :barcode AND l.client.id = :clientId AND l.active = true");
+        query.setParameter("barcode", barcode);
+        query.setParameter("clientId", clientId);
         return (Loan) query.getSingleResult();
     }
 
@@ -45,20 +46,7 @@ public class JPALoansRepository implements LoansRepository {
 
     @Override
     public List<Publication> countLoans() {
-        /*CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Loan> criteriaQuery = cb.createQuery(Loan.class);
-        Root<Loan> loan = criteriaQuery.from(Loan.class);
-
-        Subquery<Publication> subquery = criteriaQuery.subquery(Publication.class);
-        Root<Loan> subLoan = subquery.correlate(loan);
-        Join<Loan, Publication> publication = subLoan.join("publication");
-        subquery.select(publication);
-        subquery.groupBy(publication);
-        subquery.orderBy(cb.count(publication.get("id")));
-        criteriaQuery.where(cb.exists(subquery));
-        Query query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();*/
-        Query query = entityManager.createQuery("SELECT p FROM Loan l left join l.publication p group by p.id order by count(p) desc");
+        Query query = entityManager.createQuery("SELECT p FROM Loan l left join l.copy c left join c.publication p group by p.id order by count(p) desc");
         return query.getResultList();
     }
 
