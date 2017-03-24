@@ -11,6 +11,7 @@ public class CreateClientCommand {
     private String idNumber;
     private String phoneNumber;
     private String email;
+    private long id;
 
     public String getFirstName() {
         return firstName;
@@ -66,5 +67,13 @@ public class CreateClientCommand {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 }

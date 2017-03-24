@@ -4,12 +4,9 @@ import pl.com.kubachmielowiec.model.publications.Copy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @Entity
 public class Loan {
-
-    private static final Long MONTH = 31L;
 
     @Id
     @GeneratedValue
@@ -22,7 +19,6 @@ public class Loan {
     @JoinColumn(name = "CLIENT_ID")
     private Client client;
 
-    //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate loanDate;
     private boolean active;
 
@@ -42,10 +38,6 @@ public class Loan {
         this.client = client;
         this.loanDate = LocalDate.now();
         this.active = true;
-    }
-
-    public boolean hasExpired() {
-        return ChronoUnit.DAYS.between(loanDate, LocalDate.now()) > MONTH;
     }
 
     public void deactivate() {

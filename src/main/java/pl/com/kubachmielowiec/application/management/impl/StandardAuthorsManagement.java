@@ -38,6 +38,10 @@ public class StandardAuthorsManagement implements AuthorsManagement{
     @Override
     public AuthorDto getAuthor(Long authorId) {
         Author author = authorRepository.get(authorId);
+        return createAuthorDto(author);
+    }
+
+    private AuthorDto createAuthorDto(Author author) {
         AuthorDto authorDto = new AuthorDto();
         authorDto.setFirstName(author.getFirstName());
         authorDto.setLastName(author.getLastName());

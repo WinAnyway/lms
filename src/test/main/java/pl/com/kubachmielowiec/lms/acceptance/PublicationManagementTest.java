@@ -9,11 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.management.PublicationsManagement;
 import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
-import pl.com.kubachmielowiec.model.publications.Publication;
-import pl.com.kubachmielowiec.model.publications.PublicationRepository;
-import pl.com.kubachmielowiec.model.publications.Publisher;
+import pl.com.kubachmielowiec.model.publications.*;
 
 import java.time.Year;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,13 +27,16 @@ public class PublicationManagementTest {
     @Autowired
     PublicationRepository publicationRepository;
 
+    @Autowired
+    CopyRepository copyRepository;
+
     @Test
     public void shouldCreatePublication() {
         Long id = createPublication();
 
         Publication publication = publicationRepository.get(id);
-        assertThat(publication.getTitle()).isEqualTo("Dżemik");
-        assertThat(publication.getDescription()).isEqualTo("dobry");
+        assertThat(publication.getTitle()).isEqualTo("tescik");
+        assertThat(publication.getDescription()).isEqualTo("tescik");
     }
 
     @Test
@@ -65,19 +67,39 @@ public class PublicationManagementTest {
     }
 
     @Test
-    public void shouldGenerateCodesForPublication() {
+    public void shouldCreateCopiesOfPublication() {
         //given
         Long id = createPublication();
         //when
-        publicationsManagement.addCopiesOf(id, 3);
+        publicationsManagement.addCopiesOf(id, 2);
         //then
+        Publication publication = publicationRepository.get(id);
+        List<Copy> copies = copyRepository.getAvailableCopiesOf(publication);
 
+        assertThat(copies.size()).isEqualTo(2);
+        assertThat(copies.get(0).getPublication()).isEqualTo(publication);
+        assertThat(copies.get(1).getPublication()).isEqualTo(publication);
     }
+
+    @Test
+    public void shouldDeleteCopyOfPublication() {
+        Long id = createPublication();
+        publicationsManagement.addCopiesOf(id, 2);
+        Publication publication = publicationRepository.get(id);
+        List<Copy> copies = copyRepository.getAvailableCopiesOf(publication);
+        //when
+        publicationsManagement.deleteCopy(copies.get(0).getBarcode());
+        //then
+        assertThat(copies.size()).isEqualTo(1);
+        assertThat(copies.get(0).getPublication()).isEqualTo(publication);
+    }
+
+
 
     private Long createPublication() {
         CreatePublicationCommand cmd = new CreatePublicationCommand();
-        cmd.setTitle("Dżemik");
-        cmd.setDescription("dobry");
+        cmd.setTitle("tescik");
+        cmd.setDescription("tescik");
         cmd.setIsbn("asdasd");
         cmd.setPublished(Year.of(1993));
         cmd.setPublisher(new Publisher("Fabryka Słów"));

@@ -6,6 +6,9 @@ import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
 import pl.com.kubachmielowiec.model.commands.UpdatePublicationCommand;
 import pl.com.kubachmielowiec.model.publications.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Transactional
 public class StandardPublicationsManagement implements PublicationsManagement{
 
@@ -36,10 +39,17 @@ public class StandardPublicationsManagement implements PublicationsManagement{
     }
 
     @Override
-    public void addCopiesOf(Long publicationId, Integer numberOfCopies) {
+    public List<Barcode> addCopiesOf(Long publicationId, Integer numberOfCopies) {
+        List<Barcode> barcodes = new LinkedList<>();
+        Publication publication = publicationRepository.get(publicationId);
+        createCopies(numberOfCopies, barcodes, publication);
+        return barcodes;
+    }
+
+    private void createCopies(Integer numberOfCopies, List<Barcode> barcodes, Publication publication) {
         for(int i = 0; i < numberOfCopies; i++) {
-            Publication publication = publicationRepository.get(publicationId);
             Copy copy = new Copy(publication);
+            barcodes.add(copy.getBarcode());
             copyRepository.put(copy);
         }
     }
