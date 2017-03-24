@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.com.kubachmielowiec.application.LoanRaport;
 import pl.com.kubachmielowiec.application.LoaningProcess;
 import pl.com.kubachmielowiec.application.Ranking;
+import pl.com.kubachmielowiec.model.clients.Loan;
 import pl.com.kubachmielowiec.model.publications.Barcode;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/loans")
@@ -47,7 +50,7 @@ public class LoanController {
     }
 
     @GetMapping("/history/{clientId}")
-    public void getCLientLoaningHistory(@PathVariable Long clientId) {
-        loaningProcess.getClientLoaningHistory(clientId);
+    public Collection<Loan> getCLientLoaningHistory(@PathVariable Long clientId) {
+        return loaningProcess.getClientLoaningHistory(clientId);
     }
 }
