@@ -35,11 +35,11 @@ public class Publication {
     Publication() {
     }
 
-    public void activate() {
+    public void makeAvailable() {
         this.available = true;
     }
 
-    public void deactivate() {
+    public void makeUnavailable() {
         this.available = false;
     }
 

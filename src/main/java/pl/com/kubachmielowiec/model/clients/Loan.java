@@ -13,7 +13,7 @@ public class Loan {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PUBLICATION_ID")
+    @JoinColumn(name = "COPY_BARCODE")
     private Copy copy;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CLIENT_ID")

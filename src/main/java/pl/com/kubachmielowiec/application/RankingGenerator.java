@@ -8,8 +8,6 @@ public class RankingGenerator {
 
     private LoansRepository loansRepository;
 
-    private PublicationCatalog publicationCatalog;
-
     public RankingGenerator(LoansRepository loansRepository) {
         this.loansRepository = loansRepository;
     }

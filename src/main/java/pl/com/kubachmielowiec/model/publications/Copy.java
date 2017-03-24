@@ -11,6 +11,7 @@ public class Copy {
     Publication publication;
     @EmbeddedId
     Barcode barcode;
+
     boolean loaned;
 
     Copy(){}

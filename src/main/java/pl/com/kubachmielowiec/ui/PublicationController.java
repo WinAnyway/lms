@@ -1,7 +1,6 @@
 package pl.com.kubachmielowiec.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.kubachmielowiec.application.LoaningProcess;
 import pl.com.kubachmielowiec.application.PublicationCatalog;
 import pl.com.kubachmielowiec.application.PublicationQuery;
 import pl.com.kubachmielowiec.application.PublicationSearchResults;
@@ -17,12 +16,10 @@ public class PublicationController {
 
     private PublicationsManagement publicationsManagement;
     private PublicationCatalog catalog;
-    private LoaningProcess loaningProcess;
 
-    public PublicationController(PublicationsManagement publicationsManagement, PublicationCatalog catalog, LoaningProcess loaningProcess) {
+    public PublicationController(PublicationsManagement publicationsManagement, PublicationCatalog catalog) {
         this.publicationsManagement = publicationsManagement;
         this.catalog = catalog;
-        this.loaningProcess = loaningProcess;
     }
 
     @PostMapping

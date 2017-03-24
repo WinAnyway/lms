@@ -25,9 +25,6 @@ public class Client {
     String phoneNumber;
     String email;
 
-    /*@OneToMany
-    private List<Loan> loans;*/
-
     Client(){}
 
     public Client(CreateClientCommand cmd) {
@@ -38,12 +35,7 @@ public class Client {
         this.idNumber = cmd.getIdNumber();
         this.phoneNumber = cmd.getPhoneNumber();
         this.email = cmd.getEmail();
-//        this.loans = new ArrayList<>();
     }
-
-//    public void loanAPublication(Publication publication) {
-//        loans.add(new Loan(publication, this));
-//    }
 
     public Long getId() {
         return id;
@@ -77,10 +69,6 @@ public class Client {
         return email;
     }
 
-//    public Collection<Loan> getLoans() {
-//        return loans;
-//    }
-
     public void update(UpdateClientCommand cmd) {
         this.firstName = cmd.getFirstName();
         this.lastName = cmd.getLastName();
@@ -89,13 +77,6 @@ public class Client {
         this.idNumber = cmd.getIdNumber();
         this.phoneNumber = cmd.getPhoneNumber();
         this.email = cmd.getEmail();
-//        this.loans = cmd.getLoans();
     }
 
-//    public void giveBackAPublication(Long publicationId) {
-//        for(Loan loan : loans) {
-//            if (loan.getCopy().getId().equals(publicationId))
-//                loan.deactivate();
-//        }
-//    }
 }

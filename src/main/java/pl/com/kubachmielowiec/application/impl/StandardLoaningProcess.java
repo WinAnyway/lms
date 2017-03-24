@@ -39,12 +39,16 @@ public class StandardLoaningProcess implements LoaningProcess {
         Publication publication = copy.getPublication();
 
         copy.loan();
-        if(copyRepository.getAvailableCopiesOf(publication).isEmpty()) {
-            publication.deactivate();
-        }
+        makeUnavailableIfNoCopies(publication);
 
         Client client = clientRepository.get(clientId);
         loansRepository.put(new Loan(copy, client));
+    }
+
+    private void makeUnavailableIfNoCopies(Publication publication) {
+        if(copyRepository.getAvailableCopiesOf(publication).isEmpty()) {
+            publication.makeUnavailable();
+        }
     }
 
     @Override
@@ -55,7 +59,7 @@ public class StandardLoaningProcess implements LoaningProcess {
         Publication publication = copy.getPublication();
 
         if(!publication.isAvailable())
-            publication.activate();
+            publication.makeAvailable();
 
         Loan loan = loansRepository.getActiveLoan(barcode, clientId);
         loan.deactivate();
