@@ -35,4 +35,19 @@ public class LoanController {
     public Ranking generateRanking() {
         return loaningProcess.generateTheMostLoanedRanking();
     }
+
+    @PostMapping("/reminder/sms")
+    public void remindClientsViaSms() {
+        loaningProcess.remindClientsAboutReturnViaSms();
+    }
+
+    @PostMapping("/reminder/email")
+    public void remindClientsViaEmail() {
+        loaningProcess.remindClientsAboutReturnViaEmail();
+    }
+
+    @GetMapping("/history/{clientId}")
+    public void getCLientLoaningHistory(@PathVariable Long clientId) {
+        loaningProcess.getClientLoaningHistory(clientId);
+    }
 }

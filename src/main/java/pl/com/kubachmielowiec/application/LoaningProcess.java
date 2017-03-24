@@ -13,9 +13,9 @@ public interface LoaningProcess {
 
     LoanRaport generateExpiredReturnDateRaport();
 
-    void remindClientAboutReturnViaEmail(Long clientId);
+    void remindClientsAboutReturnViaEmail();
 
-    void remindClientAboutReturnViaSms(Long clientId);
+    void remindClientsAboutReturnViaSms();
 
     Collection<Loan> getClientLoaningHistory(Long clientId);
 
