@@ -2,8 +2,7 @@ package pl.com.kubachmielowiec.infrastructure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.com.kubachmielowiec.application.*;
-import pl.com.kubachmielowiec.application.impl.StandardLoaningProcess;
+import pl.com.kubachmielowiec.application.loan.*;
 import pl.com.kubachmielowiec.application.management.AuthorsManagement;
 import pl.com.kubachmielowiec.application.management.ClientsManagement;
 import pl.com.kubachmielowiec.application.management.GenresManagement;
@@ -12,6 +11,8 @@ import pl.com.kubachmielowiec.application.management.impl.StandardAuthorsManagem
 import pl.com.kubachmielowiec.application.management.impl.StandardClientsManagement;
 import pl.com.kubachmielowiec.application.management.impl.StandardGenresManagement;
 import pl.com.kubachmielowiec.application.management.impl.StandardPublicationsManagement;
+import pl.com.kubachmielowiec.application.publicationsearch.PublicationCatalog;
+import pl.com.kubachmielowiec.infrastructure.repository.*;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
 import pl.com.kubachmielowiec.model.clients.LoansRepository;
 import pl.com.kubachmielowiec.model.publications.AuthorRepository;

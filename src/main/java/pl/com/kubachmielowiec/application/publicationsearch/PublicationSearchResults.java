@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.application;
+package pl.com.kubachmielowiec.application.publicationsearch;
 
 import pl.com.kubachmielowiec.application.dtos.PublicationDto;
 

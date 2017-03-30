@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.application;
+package pl.com.kubachmielowiec.application.publicationsearch;
 
 import java.time.Year;
 
@@ -7,14 +7,14 @@ public class PublicationQuery {
     private static final Integer DEFAULT_PER_PAGE = 5;
     private static final Integer DEFAULT_PAGE_NUMBER = 1;
 
-    String phrase;
-    String isbn;
-    Year publicationYear;
-    String publisher;
-    String genre;
-    String author;
+    private String phrase;
+    private String isbn;
+    private Year publicationYear;
+    private String publisher;
+    private String genre;
+    private String author;
 
-    boolean available = true;
+    private boolean available = true;
     private Integer pageNumber = DEFAULT_PAGE_NUMBER;
     private Integer perPage = DEFAULT_PER_PAGE;
 

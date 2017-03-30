@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.application;
+package pl.com.kubachmielowiec.application.loan;
 
 import pl.com.kubachmielowiec.model.clients.Loan;
 import pl.com.kubachmielowiec.model.publications.Barcode;

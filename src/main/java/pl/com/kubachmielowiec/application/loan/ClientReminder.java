@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.application;
+package pl.com.kubachmielowiec.application.loan;
 
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +10,7 @@ import java.util.List;
 @Transactional
 public class ClientReminder {
 
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     public ClientReminder(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
