@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.ui;
+package pl.com.kubachmielowiec.ui.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.com.kubachmielowiec.application.management.GenresManagement;

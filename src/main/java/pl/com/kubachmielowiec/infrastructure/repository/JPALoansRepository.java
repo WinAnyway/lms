@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.infrastructure;
+package pl.com.kubachmielowiec.infrastructure.repository;
 
 import pl.com.kubachmielowiec.model.clients.Loan;
 import pl.com.kubachmielowiec.model.clients.LoansRepository;

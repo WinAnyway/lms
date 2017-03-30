@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.infrastructure;
+package pl.com.kubachmielowiec.infrastructure.repository;
 
 import pl.com.kubachmielowiec.model.publications.Genre;
 import pl.com.kubachmielowiec.model.publications.GenresRepository;

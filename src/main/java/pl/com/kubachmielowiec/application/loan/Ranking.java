@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.application;
+package pl.com.kubachmielowiec.application.loan;
 
 import pl.com.kubachmielowiec.model.publications.Publication;
 

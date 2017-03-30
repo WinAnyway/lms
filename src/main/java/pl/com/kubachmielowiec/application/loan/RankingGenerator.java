@@ -1,4 +1,4 @@
-package pl.com.kubachmielowiec.application;
+package pl.com.kubachmielowiec.application.loan;
 
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.model.clients.LoansRepository;
