@@ -27,8 +27,22 @@ public class JPAPublicationCatalog implements PublicationCatalog {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         PublicationSearchResults results = new PublicationSearchResults();
         List<PublicationDto> dtos = queryPublications(publicationQuery, criteriaBuilder);
+        Long total = queryTotalCount(publicationQuery, criteriaBuilder);
+        results.setPagesCount(total / publicationQuery.getPerPage() + (total % publicationQuery.getPerPage() == 0 ? 0 : 1));
         results.setPublications(dtos);
+        results.setPerPage(publicationQuery.getPerPage());
+        results.setPageNumber(publicationQuery.getPageNumber());
         return results;
+    }
+
+    private Long queryTotalCount(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder) {
+        CriteriaQuery<Long> countCriteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<Publication> publication = countCriteriaQuery.from(Publication.class);
+        Set<Predicate> countPredicates = createPredicates(publicationQuery, criteriaBuilder, publication, countCriteriaQuery);
+        countCriteriaQuery.select(criteriaBuilder.count(publication));
+        countCriteriaQuery.where(countPredicates.toArray(new Predicate[]{}));
+        Query query = entityManager.createQuery(countCriteriaQuery);
+        return (Long) query.getSingleResult();
     }
 
     private List<PublicationDto> queryPublications(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder) {
@@ -37,7 +51,13 @@ public class JPAPublicationCatalog implements PublicationCatalog {
         Set<Predicate> predicates = createPredicates(publicationQuery, criteriaBuilder, root, criteriaQuery);
         criteriaQuery.where(predicates.toArray(new Predicate[]{}));
         Query query = entityManager.createQuery(criteriaQuery);
+        query.setMaxResults(publicationQuery.getPerPage());
+        query.setFirstResult(getFirstResultOffset(publicationQuery));
         return query.getResultList();
+    }
+
+    private int getFirstResultOffset(PublicationQuery publicationQuery) {
+        return (publicationQuery.getPageNumber() - 1) * publicationQuery.getPerPage();
     }
 
     private Set<Predicate> createPredicates(PublicationQuery publicationQuery, CriteriaBuilder criteriaBuilder, Root<Publication> root, CriteriaQuery criteriaQuery) {

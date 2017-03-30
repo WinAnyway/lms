@@ -4,6 +4,9 @@ import java.time.Year;
 
 public class PublicationQuery {
 
+    private static final Integer DEFAULT_PER_PAGE = 5;
+    private static final Integer DEFAULT_PAGE_NUMBER = 1;
+
     String phrase;
     String isbn;
     Year publicationYear;
@@ -11,7 +14,9 @@ public class PublicationQuery {
     String genre;
     String author;
 
-    boolean available;
+    boolean available = true;
+    private Integer pageNumber = DEFAULT_PAGE_NUMBER;
+    private Integer perPage = DEFAULT_PER_PAGE;
 
     public String getAuthor() {
         return author;
@@ -69,4 +74,19 @@ public class PublicationQuery {
         this.available = available;
     }
 
+    public Integer getPerPage() {
+        return perPage;
+    }
+
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
+    }
+
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 }

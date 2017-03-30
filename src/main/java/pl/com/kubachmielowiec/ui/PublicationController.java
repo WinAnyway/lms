@@ -29,7 +29,9 @@ public class PublicationController {
 
     @GetMapping
     public PublicationSearchResults search(PublicationQuery publicationQuery) {
-        return catalog.search(publicationQuery);
+        PublicationSearchResults results = catalog.search(publicationQuery);
+        System.out.println(results.getPublications().size());
+        return results;
     }
 
     @GetMapping("/{publicationId}")

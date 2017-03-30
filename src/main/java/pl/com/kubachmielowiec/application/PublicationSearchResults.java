@@ -6,7 +6,10 @@ import java.util.List;
 
 public class PublicationSearchResults {
 
-    List<PublicationDto> publications;
+    private List<PublicationDto> publications;
+    private Long pagesCount;
+    private Integer pageNumber;
+    private Integer perPage;
 
     public List<PublicationDto> getPublications() {
         return publications;
@@ -14,5 +17,29 @@ public class PublicationSearchResults {
 
     public void setPublications(List<PublicationDto> publications) {
         this.publications = publications;
+    }
+
+    public Long getPagesCount() {
+        return pagesCount;
+    }
+
+    public void setPagesCount(Long pagesCount) {
+        this.pagesCount = pagesCount;
+    }
+
+    public Integer getPerPage() {
+        return perPage;
+    }
+
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
+    }
+
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }
