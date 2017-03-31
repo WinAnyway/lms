@@ -18,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@Transactional
 public class PublicationManagementTest {
 
     @Autowired
@@ -31,6 +30,7 @@ public class PublicationManagementTest {
     CopyRepository copyRepository;
 
     @Test
+    @Transactional
     public void shouldCreatePublication() {
         Long id = createPublication();
 
@@ -51,6 +51,7 @@ public class PublicationManagementTest {
     }
 
     @Test
+    @Transactional
     public void shouldChangePublication() {
         //given
         Long id = createPublication();
@@ -67,6 +68,7 @@ public class PublicationManagementTest {
     }
 
     @Test
+    @Transactional
     public void shouldCreateCopiesOfPublication() {
         //given
         Long id = createPublication();
@@ -89,6 +91,7 @@ public class PublicationManagementTest {
         List<Copy> copies = copyRepository.getAvailableCopiesOf(publication);
         //when
         publicationsManagement.deleteCopy(copies.get(0).getBarcode());
+        copies = copyRepository.getAvailableCopiesOf(publication);
         //then
         assertThat(copies.size()).isEqualTo(1);
         assertThat(copies.get(0).getPublication()).isEqualTo(publication);
