@@ -103,15 +103,6 @@ public class LoaningTest {
     }
 
     @Test
-    public void shouldGenerateExpiredReturnRaport() {
-        createExpiredLoan();
-
-        LoanRaport raport = loaningProcess.generateExpiredReturnDateRaport();
-        assertThat(raport.getExpiredLoans().size()).isEqualTo(1);
-        assertThat(raport.getExpiredLoans().get(0).getLoanDate()).isEqualTo(LocalDate.of(2017, 1, 1));
-    }
-
-    @Test
     public void shouldGetClientLoaningHistory() {
         Long id = createClient();
         Copy copy = createCopy();
@@ -125,14 +116,6 @@ public class LoaningTest {
         assertThat(loans.get(0).getClient().getId()).isEqualTo(id);
         assertThat(loans.get(0).getCopy()).isEqualTo(copy);
         assertThat(loans.get(1).getCopy()).isEqualTo(copy1);
-    }
-
-    private void createExpiredLoan() {
-        Copy copy = createCopy();
-        Client client = clientRepository.get(createClient());
-        Clock clock = Clock.fixed(Instant.parse("2017-01-01T10:15:30.00Z"), ZoneId.systemDefault());
-        loaningProcess = new StandardLoaningProcess(copyRepository, clientRepository, loansRepository, new RaportGenerator(loansRepository), new RankingGenerator(loansRepository), new ClientReminder(clientRepository), clock);
-        loaningProcess.loan(copy.getBarcode(), client.getId());
     }
 
     private Copy createCopy() {
