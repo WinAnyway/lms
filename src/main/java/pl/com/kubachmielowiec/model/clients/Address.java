@@ -11,6 +11,16 @@ public class Address {
     String homeNumber;
     String postalCode;
 
+    Address(){}
+
+    public Address(String country, String city, String street, String homeNumber, String postalCode) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.homeNumber = homeNumber;
+        this.postalCode = postalCode;
+    }
+
     public String getCountry() {
         return country;
     }

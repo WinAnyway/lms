@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.kubachmielowiec.application.loan.LoaningProcess;
 import pl.com.kubachmielowiec.application.loan.Ranking;
+import pl.com.kubachmielowiec.application.management.ClientsManagement;
 import pl.com.kubachmielowiec.application.management.PublicationsManagement;
 import pl.com.kubachmielowiec.model.clients.Client;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
@@ -40,12 +41,15 @@ public class LoaningTest {
     ClientRepository clientRepository;
 
     @Autowired
+    ClientsManagement clientsManagement;
+
+    @Autowired
     LoansRepository loansRepository;
 
     @Test
     public void shouldLoanACopy() {
         Copy copy = createCopy();
-        Client client = createClient();
+        Client client = clientRepository.get(createClient());
 
         loaningProcess.loan(copy.getBarcode(), client.getId());
 
@@ -55,7 +59,7 @@ public class LoaningTest {
     @Test(expected = IllegalStateException.class)
     public void shouldNotLoanAlreadyLoanedCopy() {
         Copy copy = createCopy();
-        Client client = createClient();
+        Client client = clientRepository.get(createClient());
 
         loaningProcess.loan(copy.getBarcode(), client.getId());
         loaningProcess.loan(copy.getBarcode(), client.getId());
@@ -64,7 +68,7 @@ public class LoaningTest {
     @Test
     public void shouldGiveBackACopy() {
         Copy copy = createCopy();
-        Client client = createClient();
+        Client client = clientRepository.get(createClient());
         loaningProcess.loan(copy.getBarcode(), client.getId());
 
         loaningProcess.giveBack(copy.getBarcode(), client.getId());
@@ -75,7 +79,7 @@ public class LoaningTest {
     @Test(expected = IllegalStateException.class)
     public void shouldNotGiveBackNotLoanedCopy() {
         Copy copy = createCopy();
-        Client client = createClient();
+        Client client = clientRepository.get(createClient());
 
         loaningProcess.giveBack(copy.getBarcode(), client.getId());
     }
@@ -84,7 +88,7 @@ public class LoaningTest {
     public void shouldGenerateTheMostLoanedRanking() {
         Copy c1 = createCopy();
         Copy c2 = createAnotherCopy();
-        Client client = createClient();
+        Client client = clientRepository.get(createClient());
         loaningProcess.loan(c1.getBarcode(), client.getId());
         loaningProcess.loan(c2.getBarcode(), client.getId());
         loaningProcess.giveBack(c1.getBarcode(), client.getId());
@@ -125,16 +129,13 @@ public class LoaningTest {
         return publicationsManagement.createPublication(cmd);
     }
 
-    private Client createClient() {
+    private Long createClient() {
         CreateClientCommand cmd = new CreateClientCommand();
-        cmd.setId(1L);
         cmd.setFirstName("Kuba");
         cmd.setLastName("Buba");
         cmd.setEmail("kuba.buba@mail.com");
         cmd.setPhoneNumber("562323235");
-        Client client = new Client(cmd);
-        clientRepository.put(client);
-        return client;
+        return clientsManagement.createClient(cmd);
     }
 
 }
