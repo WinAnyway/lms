@@ -3,6 +3,7 @@ package pl.com.kubachmielowiec.model.clients;
 import pl.com.kubachmielowiec.model.publications.Copy;
 
 import javax.persistence.*;
+import java.time.Clock;
 import java.time.LocalDate;
 
 @Entity
@@ -25,11 +26,10 @@ public class Loan {
     Loan() {
     }
 
-    public Loan(Copy copy, Client client) {
+    public Loan(Copy copy, Client client, Clock clock) {
         this.copy = copy;
-        loanDate = LocalDate.now();
         this.client = client;
-        this.loanDate = LocalDate.now();
+        this.loanDate = LocalDate.now(clock);
         this.active = true;
     }
 

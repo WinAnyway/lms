@@ -10,7 +10,8 @@ import pl.com.kubachmielowiec.model.publications.Copy;
 import pl.com.kubachmielowiec.model.publications.CopyRepository;
 import pl.com.kubachmielowiec.model.publications.Publication;
 
-import java.util.Collection;
+import java.time.Clock;
+import java.util.List;
 
 public class StandardLoaningProcess implements LoaningProcess {
 
@@ -20,15 +21,17 @@ public class StandardLoaningProcess implements LoaningProcess {
     private RaportGenerator raportGenerator;
     private RankingGenerator rankingGenerator;
     private ClientReminder clientReminder;
+    private Clock clock;
 
     public StandardLoaningProcess(CopyRepository copyRepository, ClientRepository clientRepository,
-                                  LoansRepository loansRepository, RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder) {
+                                  LoansRepository loansRepository, RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder, Clock clock) {
         this.copyRepository = copyRepository;
         this.clientRepository = clientRepository;
         this.loansRepository = loansRepository;
         this.raportGenerator = raportGenerator;
         this.rankingGenerator = rankingGenerator;
         this.clientReminder = clientReminder;
+        this.clock = clock;
     }
 
     @Override
@@ -41,7 +44,7 @@ public class StandardLoaningProcess implements LoaningProcess {
         makeUnavailableIfNoCopies(publication);
 
         Client client = clientRepository.get(clientId);
-        loansRepository.put(new Loan(copy, client));
+        loansRepository.put(new Loan(copy, client, clock));
     }
 
     private void makeUnavailableIfNoCopies(Publication publication) {
@@ -81,7 +84,7 @@ public class StandardLoaningProcess implements LoaningProcess {
 
     @Override
     @Transactional
-    public Collection<Loan> getClientLoaningHistory(Long clientId) {
+    public List<Loan> getClientLoaningHistory(Long clientId) {
         return loansRepository.getLoansFor(clientId);
     }
 

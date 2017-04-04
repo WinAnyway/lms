@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.kubachmielowiec.application.loan.LoaningProcess;
-import pl.com.kubachmielowiec.application.loan.Ranking;
+import pl.com.kubachmielowiec.application.loan.*;
 import pl.com.kubachmielowiec.application.management.ClientsManagement;
 import pl.com.kubachmielowiec.application.management.PublicationsManagement;
 import pl.com.kubachmielowiec.model.clients.Client;
 import pl.com.kubachmielowiec.model.clients.ClientRepository;
+import pl.com.kubachmielowiec.model.clients.Loan;
 import pl.com.kubachmielowiec.model.clients.LoansRepository;
 import pl.com.kubachmielowiec.model.commands.CreateClientCommand;
 import pl.com.kubachmielowiec.model.commands.CreatePublicationCommand;
@@ -19,7 +19,8 @@ import pl.com.kubachmielowiec.model.publications.Copy;
 import pl.com.kubachmielowiec.model.publications.CopyRepository;
 import pl.com.kubachmielowiec.model.publications.Publisher;
 
-import java.time.Year;
+import java.time.*;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -99,6 +100,39 @@ public class LoaningTest {
         assertThat(ranking.getLoansCounts().size()).isEqualTo(2);
         assertThat(ranking.getLoansCounts().get(0)).isEqualTo(c1.getPublication());
         assertThat(ranking.getLoansCounts().get(1)).isEqualTo(c2.getPublication());
+    }
+
+    @Test
+    public void shouldGenerateExpiredReturnRaport() {
+        createExpiredLoan();
+
+        LoanRaport raport = loaningProcess.generateExpiredReturnDateRaport();
+        assertThat(raport.getExpiredLoans().size()).isEqualTo(1);
+        assertThat(raport.getExpiredLoans().get(0).getLoanDate()).isEqualTo(LocalDate.of(2017, 1, 1));
+    }
+
+    @Test
+    public void shouldGetClientLoaningHistory() {
+        Long id = createClient();
+        Copy copy = createCopy();
+        Copy copy1 = createAnotherCopy();
+        loaningProcess.loan(copy.getBarcode(), id);
+        loaningProcess.loan(copy1.getBarcode(), id);
+
+        List<Loan> loans = loaningProcess.getClientLoaningHistory(id);
+
+        assertThat(loans.size()).isEqualTo(2);
+        assertThat(loans.get(0).getClient().getId()).isEqualTo(id);
+        assertThat(loans.get(0).getCopy()).isEqualTo(copy);
+        assertThat(loans.get(1).getCopy()).isEqualTo(copy1);
+    }
+
+    private void createExpiredLoan() {
+        Copy copy = createCopy();
+        Client client = clientRepository.get(createClient());
+        Clock clock = Clock.fixed(Instant.parse("2017-01-01T10:15:30.00Z"), ZoneId.systemDefault());
+        loaningProcess = new StandardLoaningProcess(copyRepository, clientRepository, loansRepository, new RaportGenerator(loansRepository), new RankingGenerator(loansRepository), new ClientReminder(clientRepository), clock);
+        loaningProcess.loan(copy.getBarcode(), client.getId());
     }
 
     private Copy createCopy() {

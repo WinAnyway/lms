@@ -20,17 +20,25 @@ import pl.com.kubachmielowiec.model.publications.CopyRepository;
 import pl.com.kubachmielowiec.model.publications.GenresRepository;
 import pl.com.kubachmielowiec.model.publications.PublicationRepository;
 
+import java.time.Clock;
+
 @Configuration
 public class Config {
 
     @Bean
+    public Clock clock() {
+        return Clock.systemDefaultZone();
+    }
+
+
+    @Bean
     public LoaningProcess loaningProcess(CopyRepository copyRepository, ClientRepository clientRepository, LoansRepository loansRepository,
-                                         RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder) {
-        return new StandardLoaningProcess(copyRepository, clientRepository, loansRepository, raportGenerator, rankingGenerator, clientReminder);
+                                         RaportGenerator raportGenerator, RankingGenerator rankingGenerator, ClientReminder clientReminder, Clock clock) {
+        return new StandardLoaningProcess(copyRepository, clientRepository, loansRepository, raportGenerator, rankingGenerator, clientReminder, clock);
     }
 
     @Bean
-    public AuthorsManagement authorsManagement(AuthorRepository authorRepository){
+    public AuthorsManagement authorsManagement(AuthorRepository authorRepository) {
         return new StandardAuthorsManagement(authorRepository);
     }
 
@@ -76,12 +84,12 @@ public class Config {
     }
 
     @Bean
-    public PublicationRepository publicationRepository(){
+    public PublicationRepository publicationRepository() {
         return new JPAPublicationRepository();
     }
 
     @Bean
-    public ClientRepository clientRepository(){
+    public ClientRepository clientRepository() {
         return new JPAClientRepository();
     }
 
