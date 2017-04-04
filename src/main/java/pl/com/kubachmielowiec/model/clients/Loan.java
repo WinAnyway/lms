@@ -25,13 +25,6 @@ public class Loan {
     Loan() {
     }
 
-    public Loan(Copy copy, Client client, LocalDate loanDate, boolean active) {
-        this.copy = copy;
-        this.client = client;
-        this.loanDate = loanDate;
-        this.active = active;
-    }
-
     public Loan(Copy copy, Client client) {
         this.copy = copy;
         loanDate = LocalDate.now();

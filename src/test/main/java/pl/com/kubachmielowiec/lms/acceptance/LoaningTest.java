@@ -80,25 +80,6 @@ public class LoaningTest {
         loaningProcess.giveBack(copy.getBarcode(), client.getId());
     }
 
-    /*@Test
-    public void shouldGenerateExpiredReturnRaport() {
-        Loan loan = createExpiredLoan();
-
-        LoanRaport loanRaport = loaningProcess.generateExpiredReturnDateRaport();
-
-        assertThat(loanRaport.getExpiredLoans().size()).isEqualTo(2);
-        assertThat(loanRaport.getExpiredLoans().get(1).getCopy()).isEqualTo(loan.getCopy().getBarcode().getCode());
-        assertThat(loanRaport.getExpiredLoans().get(1).getClientId()).isEqualTo(loan.getClient().getId());
-    }
-
-    private Loan createExpiredLoan() {
-        Copy copy = createCopy();
-        Client client = createClient();
-        Loan loan = new Loan(copy, client, LocalDate.of(2000, 10, 1), true);
-        loansRepository.put(loan);
-        return loan;
-    }*/
-
     @Test
     public void shouldGenerateTheMostLoanedRanking() {
         Copy c1 = createCopy();
